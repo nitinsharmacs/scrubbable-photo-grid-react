@@ -13,7 +13,7 @@ const gridConfig: GridConfig = {
   targetRowHeight: 150,
 };
 
-const loadedSections = store.slice(0, 10);
+const loadedSections = store.slice(0, 5);
 
 const Grid = () => {
   const [config, setConfig] = useState<GridConfig>(gridConfig);
