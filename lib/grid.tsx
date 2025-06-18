@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import './grid.css';
 
-import store from '../data/store.json';
-import type { SectionsMap, GridConfig, SectionType } from 'lib/types';
-import { initSectionsMap } from 'lib/helpers';
 import Section from 'lib/components/Section/Section';
+import { initSectionsMap } from 'lib/helpers';
+import type { GridConfig, SectionsMap, SectionType } from 'lib/types';
+import store from '../data/store.json';
 
 const gridConfig: GridConfig = {
   containerWidth: 800,
@@ -13,11 +13,11 @@ const gridConfig: GridConfig = {
   targetRowHeight: 150,
 };
 
-const loadedSections = store.slice(0, 5);
+const loadedSections = store.slice(0, 5) as SectionType[];
 
 const Grid = () => {
   const [config, setConfig] = useState<GridConfig>(gridConfig);
-  const [sections, updateSections] = useState(loadedSections);
+  const [sections, updateSections] = useState<SectionType[]>(loadedSections);
 
   const [sectionsMap, updateSectionsMap] = useState<SectionsMap>(
     initSectionsMap(loadedSections, config)

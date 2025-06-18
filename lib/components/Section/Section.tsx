@@ -1,6 +1,8 @@
 import type { SectionProps } from 'lib/components/Section/types';
 
 import './section.css';
+import type { SegmentType } from 'lib/types';
+import Segment from 'lib/components/Segment/Segment';
 
 const Section = ({ section, config, map }: SectionProps) => {
   return (
@@ -12,7 +14,19 @@ const Section = ({ section, config, map }: SectionProps) => {
         height: `${map.height}px`,
         top: `${map.top}px`,
       }}
-    ></div>
+    >
+      {map.visible ? (
+        section.segments.map((segment: SegmentType) => (
+          <Segment
+            key={segment.segmentId}
+            segment={segment}
+            map={map.segmentsMap[segment.segmentId]}
+          />
+        ))
+      ) : (
+        <></>
+      )}
+    </div>
   );
 };
 

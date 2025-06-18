@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Segment > should match snapshot 1`] = `
+<div>
+  <div
+    class="segment"
+    id="sec1"
+    style="width: 100px; height: 100px; top: 0px;"
+  />
+</div>
+`;

@@ -1,7 +1,7 @@
 export type SectionType = {
   sectionId: string;
   totalImages: number;
-  segments: any[];
+  segments: SegmentType[];
 };
 
 export type SegmentType = {

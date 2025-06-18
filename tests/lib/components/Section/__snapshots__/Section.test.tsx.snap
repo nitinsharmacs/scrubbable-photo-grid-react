@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Section > should render the section 1`] = `
+exports[`Section > should match snapshot 1`] = `
 <div>
   <div
     class="section"
