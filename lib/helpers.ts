@@ -3,8 +3,10 @@ import createJustifiedLayout from 'justified-layout';
 import type {
   GridConfig,
   ImageType,
+  SectionConfig,
   SectionType,
   SectionsMap,
+  SegmentConfig,
   SegmentType,
   SegmentsMap,
   TileType,
@@ -37,20 +39,19 @@ export const createSegmentsMap = (
         gridConfig
       );
 
+      const segmentHeight: number = Math.ceil(segmentLayout.containerHeight);
+
       return {
         ...map,
         [segment.segmentId]: {
           top: gridConfig.segmentMargin + map['prev'].height,
-          height: segmentLayout.containerHeight,
+          height: segmentHeight,
           width: gridConfig.containerWidth,
           tiles: segmentLayout.boxes as TileType[],
         },
         prev: {
           ...map.prev,
-          height:
-            segmentLayout.containerHeight +
-            gridConfig.segmentMargin +
-            map['prev'].height,
+          height: segmentHeight + gridConfig.segmentMargin + map['prev'].height,
         },
       } as SegmentsMap;
     },
@@ -65,7 +66,7 @@ export const createSegmentsMap = (
 export const initSectionsMap = (
   sections: SectionType[],
   gridConfig: GridConfig
-) => {
+): SectionsMap => {
   const map = sections.reduce<SectionsMap>(
     (map: SectionsMap, section: SectionType, index: number) => {
       const sectionHeight = estimateSectionHeight(
@@ -79,7 +80,7 @@ export const initSectionsMap = (
           top: gridConfig.sectionMargin + map['prev'].height,
           visible: false,
           index,
-          segmentsMap: createSegmentsMap(section.segments, gridConfig),
+          segmentsMap: {},
         },
         prev: {
           ...map.prev,
@@ -87,10 +88,55 @@ export const initSectionsMap = (
         },
       } as SectionsMap;
     },
-    { prev: { height: 0, top: 0, visible: false, segmentsMap: {} } }
+    { prev: { height: 0, top: 0, visible: false, index: -1, segmentsMap: {} } }
   );
 
   delete map['prev'];
 
   return map;
+};
+
+export const recomputeSectionMap = (
+  sectionMap: SectionConfig,
+  section: SectionType,
+  gridConfig: GridConfig
+): SectionConfig => {
+  const segmentsMap = createSegmentsMap(section.segments, gridConfig);
+  const height = sectionFinalHeight(segmentsMap, gridConfig);
+
+  return {
+    ...sectionMap,
+    segmentsMap,
+    height,
+  };
+};
+
+const sectionFinalHeight = (
+  sectionSegmentsMap: SegmentsMap,
+  gridConfig: GridConfig
+): number => {
+  return Object.values(sectionSegmentsMap).reduce<number>(
+    (height: number, segmentConfig: SegmentConfig) => {
+      return gridConfig.segmentMargin + segmentConfig.height + height;
+    },
+    0
+  );
+};
+
+export const updateSectionsTop = (
+  sectionsMap: SectionsMap,
+  toBeUpdatedSectionsId: string[],
+  delta: number
+): SectionsMap => {
+  return toBeUpdatedSectionsId.reduce<SectionsMap>(
+    (map, sectionId: string) => {
+      return {
+        ...map,
+        [sectionId]: { ...map[sectionId], top: map[sectionId].top + delta },
+      };
+    },
+    {
+      ...sectionsMap,
+    }
+  );
 };

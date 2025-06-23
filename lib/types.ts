@@ -42,7 +42,7 @@ export type SectionConfig = {
   width?: number;
   top: number;
   visible: boolean;
-  index?: number;
+  index: number;
   segmentsMap: SegmentsMap;
 };
 

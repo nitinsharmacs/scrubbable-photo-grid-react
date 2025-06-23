@@ -2,6 +2,7 @@ import {
   createSegmentsMap,
   estimateSectionHeight,
   initSectionsMap,
+  recomputeSectionsMap,
 } from 'lib/helpers';
 import {
   GridConfig,
@@ -102,5 +103,94 @@ describe('helpers', () => {
       },
     };
     expect(createSegmentsMap(segments, gridConfig)).toStrictEqual(expected);
+  });
+
+  it.only('should recompute sections map for visible sections', () => {
+    const sections: SectionType[] = [
+      {
+        sectionId: 'sec1',
+        totalImages: 1,
+        segments: [
+          {
+            segmentId: 'seg-1',
+            header: 'segment 1',
+            images: [
+              {
+                metadata: {
+                  width: 100,
+                  height: 100,
+                  orientation: 1,
+                },
+              },
+            ],
+          },
+          {
+            segmentId: 'seg-2',
+            header: 'segment 2',
+            images: [],
+          },
+        ],
+      },
+      { sectionId: 'sec2', totalImages: 16, segments: [] },
+      { sectionId: 'sec3', totalImages: 160, segments: [] },
+    ];
+
+    const sectionsMap: SectionsMap = {
+      sec1: {
+        top: 20,
+        height: 150,
+        visible: false,
+        index: 0,
+        segmentsMap: {},
+      },
+      sec2: {
+        top: 190,
+        height: 600,
+        visible: false,
+        index: 1,
+        segmentsMap: {},
+      },
+      sec3: {
+        top: 810,
+        height: 4800,
+        visible: false,
+        index: 2,
+        segmentsMap: {},
+      },
+    };
+    const visibleSectionsIds: string[] = ['sec1'];
+
+    const expectedMap: SectionsMap = {
+      sec1: {
+        top: 20,
+        height: 210,
+        visible: true,
+        index: 0,
+        segmentsMap: {},
+      },
+      sec2: {
+        top: 250,
+        height: 600,
+        visible: false,
+        index: 1,
+        segmentsMap: {},
+      },
+      sec3: {
+        top: 870,
+        height: 4800,
+        visible: false,
+        index: 2,
+        segmentsMap: {},
+      },
+    };
+
+    expect(
+      recomputeSectionsMap(
+        sections,
+        sectionsMap,
+        gridConfig,
+        visibleSectionsIds
+      )
+    ).toStrictEqual(expectedMap);
   });
 });
