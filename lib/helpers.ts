@@ -140,3 +140,60 @@ export const updateSectionsTop = (
     }
   );
 };
+export class SectionsMapper {
+  private readonly gridConfig: GridConfig;
+
+  private sectionsMap: SectionsMap;
+
+  constructor(gridConfig: GridConfig) {
+    this.gridConfig = gridConfig;
+    this.sectionsMap = {};
+  }
+
+  createMap(sections: SectionType[]): SectionsMap {
+    this.sectionsMap = initSectionsMap(sections, this.gridConfig);
+    return { ...this.sectionsMap };
+  }
+
+  updateMap(sectionsMap: SectionsMap): void {
+    this.sectionsMap = sectionsMap;
+  }
+
+  getMap(): SectionsMap {
+    return { ...this.sectionsMap };
+  }
+
+  getSectionConfig(sectionId: string): SectionConfig {
+    return { ...this.sectionsMap[sectionId] };
+  }
+
+  updateForSection(section: SectionType, isVisible: boolean): SectionConfig {
+    const oldSectionMap: SectionConfig = this.sectionsMap[section.sectionId];
+
+    const newSectionMap: SectionConfig = recomputeSectionMap(
+      oldSectionMap,
+      section,
+      this.gridConfig
+    );
+
+    newSectionMap.visible = isVisible;
+    this.sectionsMap[section.sectionId] = newSectionMap;
+
+    return newSectionMap;
+  }
+
+  updateSectionsTopFrom(
+    sectionPos: number,
+    delta: number,
+    sections: SectionType[]
+  ): void {
+    const nextToBeSectionsId: string[] = sections
+      .slice(sectionPos)
+      .map((section: SectionType) => section.sectionId);
+
+    this.sectionsMap = {
+      ...this.sectionsMap,
+      ...updateSectionsTop(this.sectionsMap, nextToBeSectionsId, delta),
+    };
+  }
+}

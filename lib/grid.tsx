@@ -1,12 +1,8 @@
-import { createRef, useCallback, useEffect, useState } from 'react';
+import { createRef, useCallback, useEffect, useMemo, useState } from 'react';
 import './grid.css';
 
 import Section from 'lib/components/Section/Section';
-import {
-  initSectionsMap,
-  recomputeSectionMap,
-  updateSectionsTop,
-} from 'lib/helpers';
+import { SectionsMapper } from 'lib/helpers';
 import type {
   GridConfig,
   SectionConfig,
@@ -31,42 +27,36 @@ const Grid = () => {
 
   const [sections, updateSections] = useState<SectionType[]>(loadedSections);
 
+  const sectionsMapper = useMemo(() => new SectionsMapper(config), [config]);
+
   const [sectionsMap, updateSectionsMap] = useState<SectionsMap>(
-    initSectionsMap(loadedSections, config)
+    sectionsMapper.createMap(sections)
   );
 
   const intersectionHandler: IntersectionObserverCallback = useCallback(
     (sectionsEntry: IntersectionObserverEntry[]) => {
-      /**
-       * recompute section map for each entry
-       * update tops of next section based on recompute
-       *  */
+      updateSectionsMap((prev) => {
+        sectionsMapper.updateMap(prev);
 
-      updateSectionsMap((prevSectionsMap: SectionsMap) => {
-        return sectionsEntry.reduce<SectionsMap>(
-          (map, entry: IntersectionObserverEntry) => {
-            const oldSectionMap: SectionConfig = map[entry.target.id];
+        sectionsEntry.forEach((sectionEntry: IntersectionObserverEntry) => {
+          const oldSectionMap: SectionConfig = sectionsMapper.getSectionConfig(
+            sectionEntry.target.id
+          );
 
-            const sectionMap: SectionConfig = recomputeSectionMap(
-              map[entry.target.id],
-              sections[oldSectionMap.index],
-              gridConfig
-            );
+          const section: SectionType = sections[oldSectionMap.index];
 
-            sectionMap.visible = entry.isIntersecting;
+          const newSectionMap: SectionConfig = sectionsMapper.updateForSection(
+            section,
+            sectionEntry.isIntersecting
+          );
 
-            const nextToBeSectionsId: string[] = sections
-              .slice(oldSectionMap.index + 1)
-              .map((section: SectionType) => section.sectionId);
-
-            const delta: number = sectionMap.height - oldSectionMap.height;
-
-            map[entry.target.id] = sectionMap;
-
-            return updateSectionsTop(map, nextToBeSectionsId, delta);
-          },
-          prevSectionsMap
-        );
+          sectionsMapper.updateSectionsTopFrom(
+            oldSectionMap.index + 1,
+            newSectionMap.height - oldSectionMap.height,
+            sections
+          );
+        });
+        return sectionsMapper.getMap();
       });
     },
     []
