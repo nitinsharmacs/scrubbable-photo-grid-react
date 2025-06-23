@@ -30,34 +30,27 @@ const Grid = () => {
   const sectionsMapper = useMemo(() => new SectionsMapper(config), [config]);
 
   const [sectionsMap, updateSectionsMap] = useState<SectionsMap>(
-    sectionsMapper.createMap(sections)
+    sectionsMapper.createMap.bind(sectionsMapper, sections)
   );
 
   const intersectionHandler: IntersectionObserverCallback = useCallback(
     (sectionsEntry: IntersectionObserverEntry[]) => {
-      updateSectionsMap((prev) => {
-        sectionsMapper.updateMap(prev);
-
-        sectionsEntry.forEach((sectionEntry: IntersectionObserverEntry) => {
-          const oldSectionMap: SectionConfig = sectionsMapper.getSectionConfig(
-            sectionEntry.target.id
-          );
-
-          const section: SectionType = sections[oldSectionMap.index];
-
-          const newSectionMap: SectionConfig = sectionsMapper.updateForSection(
-            section,
-            sectionEntry.isIntersecting
-          );
-
-          sectionsMapper.updateSectionsTopFrom(
-            oldSectionMap.index + 1,
-            newSectionMap.height - oldSectionMap.height,
-            sections
-          );
-        });
-        return sectionsMapper.getMap();
+      sectionsEntry.forEach((sectionEntry: IntersectionObserverEntry) => {
+        const oldSectionMap: SectionConfig = sectionsMapper.getSectionConfig(
+          sectionEntry.target.id
+        );
+        const section: SectionType = sections[oldSectionMap.index];
+        const newSectionMap: SectionConfig = sectionsMapper.updateForSection(
+          section,
+          sectionEntry.isIntersecting
+        );
+        sectionsMapper.updateSectionsTopFrom(
+          oldSectionMap.index + 1,
+          newSectionMap.height - oldSectionMap.height,
+          sections
+        );
       });
+      updateSectionsMap(sectionsMapper.getMap());
     },
     []
   );
