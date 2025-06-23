@@ -2,7 +2,7 @@ import { createRef, useCallback, useEffect, useMemo, useState } from 'react';
 import './grid.css';
 
 import Section from 'lib/components/Section/Section';
-import { SectionsMapper } from 'lib/helpers';
+import { SectionsMapper } from './models/SectionsMapper';
 import type {
   GridConfig,
   SectionConfig,
@@ -39,17 +39,21 @@ const Grid = () => {
         const oldSectionMap: SectionConfig = sectionsMapper.getSectionConfig(
           sectionEntry.target.id
         );
+
         const section: SectionType = sections[oldSectionMap.index];
+
         const newSectionMap: SectionConfig = sectionsMapper.updateForSection(
           section,
           sectionEntry.isIntersecting
         );
+
         sectionsMapper.updateSectionsTopFrom(
           oldSectionMap.index + 1,
           newSectionMap.height - oldSectionMap.height,
           sections
         );
       });
+
       updateSectionsMap(sectionsMapper.getMap());
     },
     []

@@ -1,11 +1,11 @@
 import {
   createSegmentsMap,
   estimateSectionHeight,
-  initSectionsMap,
-  recomputeSectionsMap,
+  recomputeSectionMap,
 } from 'lib/helpers';
 import {
   GridConfig,
+  SectionConfig,
   SectionType,
   SectionsMap,
   SegmentType,
@@ -23,39 +23,6 @@ describe('helpers', () => {
   it('should estimate section height', () => {
     expect(estimateSectionHeight(1, gridConfig)).toBe(150);
     expect(estimateSectionHeight(15, gridConfig)).toBe(450);
-  });
-
-  it('should create initial map for sections', () => {
-    const sections: SectionType[] = [
-      { sectionId: 'sec1', totalImages: 1, segments: [] },
-      { sectionId: 'sec2', totalImages: 16, segments: [] },
-      { sectionId: 'sec3', totalImages: 160, segments: [] },
-    ];
-
-    const expectedMap: SectionsMap = {
-      sec1: {
-        top: 20,
-        height: 150,
-        visible: false,
-        index: 0,
-        segmentsMap: {},
-      },
-      sec2: {
-        top: 190,
-        height: 600,
-        visible: false,
-        index: 1,
-        segmentsMap: {},
-      },
-      sec3: {
-        top: 810,
-        height: 4800,
-        visible: false,
-        index: 2,
-        segmentsMap: {},
-      },
-    };
-    expect(initSectionsMap(sections, gridConfig)).toStrictEqual(expectedMap);
   });
 
   it('should create segments map', () => {
@@ -105,7 +72,7 @@ describe('helpers', () => {
     expect(createSegmentsMap(segments, gridConfig)).toStrictEqual(expected);
   });
 
-  it.only('should recompute sections map for visible sections', () => {
+  it('should recompute section map', () => {
     const sections: SectionType[] = [
       {
         sectionId: 'sec1',
@@ -158,39 +125,38 @@ describe('helpers', () => {
         segmentsMap: {},
       },
     };
-    const visibleSectionsIds: string[] = ['sec1'];
 
-    const expectedMap: SectionsMap = {
-      sec1: {
-        top: 20,
-        height: 210,
-        visible: true,
-        index: 0,
-        segmentsMap: {},
-      },
-      sec2: {
-        top: 250,
-        height: 600,
-        visible: false,
-        index: 1,
-        segmentsMap: {},
-      },
-      sec3: {
-        top: 870,
-        height: 4800,
-        visible: false,
-        index: 2,
-        segmentsMap: {},
+    const expectedMap: SectionConfig = {
+      top: 20,
+      height: 200,
+      visible: false,
+      index: 0,
+      segmentsMap: {
+        'seg-1': {
+          height: 170,
+          tiles: [
+            {
+              aspectRatio: 1,
+              height: 150,
+              left: 10,
+              top: 10,
+              width: 150,
+            },
+          ],
+          top: 10,
+          width: 800,
+        },
+        'seg-2': {
+          height: 10,
+          tiles: [],
+          top: 190,
+          width: 800,
+        },
       },
     };
 
     expect(
-      recomputeSectionsMap(
-        sections,
-        sectionsMap,
-        gridConfig,
-        visibleSectionsIds
-      )
+      recomputeSectionMap(sectionsMap['sec1'], sections[0], gridConfig)
     ).toStrictEqual(expectedMap);
   });
 });

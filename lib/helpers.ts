@@ -63,39 +63,6 @@ export const createSegmentsMap = (
   return map;
 };
 
-export const initSectionsMap = (
-  sections: SectionType[],
-  gridConfig: GridConfig
-): SectionsMap => {
-  const map = sections.reduce<SectionsMap>(
-    (map: SectionsMap, section: SectionType, index: number) => {
-      const sectionHeight = estimateSectionHeight(
-        section.totalImages,
-        gridConfig
-      );
-      return {
-        ...map,
-        [section.sectionId]: {
-          height: sectionHeight,
-          top: gridConfig.sectionMargin + map['prev'].height,
-          visible: false,
-          index,
-          segmentsMap: {},
-        },
-        prev: {
-          ...map.prev,
-          height: sectionHeight + gridConfig.sectionMargin + map['prev'].height,
-        },
-      } as SectionsMap;
-    },
-    { prev: { height: 0, top: 0, visible: false, index: -1, segmentsMap: {} } }
-  );
-
-  delete map['prev'];
-
-  return map;
-};
-
 export const recomputeSectionMap = (
   sectionMap: SectionConfig,
   section: SectionType,
@@ -140,60 +107,3 @@ export const updateSectionsTop = (
     }
   );
 };
-export class SectionsMapper {
-  private readonly gridConfig: GridConfig;
-
-  private sectionsMap: SectionsMap;
-
-  constructor(gridConfig: GridConfig) {
-    this.gridConfig = gridConfig;
-    this.sectionsMap = {};
-  }
-
-  createMap(sections: SectionType[]): SectionsMap {
-    this.sectionsMap = initSectionsMap(sections, this.gridConfig);
-    return { ...this.sectionsMap };
-  }
-
-  updateMap(sectionsMap: SectionsMap): void {
-    this.sectionsMap = sectionsMap;
-  }
-
-  getMap(): SectionsMap {
-    return { ...this.sectionsMap };
-  }
-
-  getSectionConfig(sectionId: string): SectionConfig {
-    return { ...this.sectionsMap[sectionId] };
-  }
-
-  updateForSection(section: SectionType, isVisible: boolean): SectionConfig {
-    const oldSectionMap: SectionConfig = this.sectionsMap[section.sectionId];
-
-    const newSectionMap: SectionConfig = recomputeSectionMap(
-      oldSectionMap,
-      section,
-      this.gridConfig
-    );
-
-    newSectionMap.visible = isVisible;
-    this.sectionsMap[section.sectionId] = newSectionMap;
-
-    return newSectionMap;
-  }
-
-  updateSectionsTopFrom(
-    sectionPos: number,
-    delta: number,
-    sections: SectionType[]
-  ): void {
-    const nextToBeSectionsId: string[] = sections
-      .slice(sectionPos)
-      .map((section: SectionType) => section.sectionId);
-
-    this.sectionsMap = {
-      ...this.sectionsMap,
-      ...updateSectionsTop(this.sectionsMap, nextToBeSectionsId, delta),
-    };
-  }
-}
