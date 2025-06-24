@@ -73,7 +73,7 @@ describe('SectionsMapper', () => {
     });
   });
 
-  it<LocalTestContext>('should update section map based on visibility', ({
+  it<LocalTestContext>('should update section map based when visible', ({
     mapper,
   }) => {
     const section = {
@@ -124,7 +124,7 @@ describe('SectionsMapper', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it<LocalTestContext>('should update section map based on visibility [Need to look again]', ({
+  it<LocalTestContext>('should update section map when invisible', ({
     mapper,
   }) => {
     const section = {
@@ -150,25 +150,10 @@ describe('SectionsMapper', () => {
 
     const expected: SectionConfig = {
       top: 20,
-      height: 180,
+      height: 150,
       visible: false,
       index: 0,
-      segmentsMap: {
-        'seg-1': {
-          top: 10,
-          width: 800,
-          height: 170,
-          tiles: [
-            {
-              width: 150,
-              height: 150,
-              top: 10,
-              left: 10,
-              aspectRatio: 1,
-            },
-          ],
-        },
-      },
+      segmentsMap: {},
     };
     const actual = mapper.updateForSection(section, false);
 
@@ -208,5 +193,67 @@ describe('SectionsMapper', () => {
     const actual = mapper.updateSectionsTopFrom(1, 2, sections);
 
     expect(actual).toStrictEqual(expected);
+  });
+  it<LocalTestContext>('should recompute section map', ({ mapper }) => {
+    const sections: SectionType[] = [
+      {
+        sectionId: 'sec1',
+        totalImages: 1,
+        segments: [
+          {
+            segmentId: 'seg-1',
+            header: 'segment 1',
+            images: [
+              {
+                metadata: {
+                  width: 100,
+                  height: 100,
+                  orientation: 1,
+                },
+              },
+            ],
+          },
+          {
+            segmentId: 'seg-2',
+            header: 'segment 2',
+            images: [],
+          },
+        ],
+      },
+      { sectionId: 'sec2', totalImages: 16, segments: [] },
+      { sectionId: 'sec3', totalImages: 160, segments: [] },
+    ];
+    mapper.createMap(sections);
+
+    const expectedMap: SectionConfig = {
+      top: 20,
+      height: 200,
+      visible: false,
+      index: 0,
+      segmentsMap: {
+        'seg-1': {
+          height: 170,
+          tiles: [
+            {
+              aspectRatio: 1,
+              height: 150,
+              left: 10,
+              top: 10,
+              width: 150,
+            },
+          ],
+          top: 10,
+          width: 800,
+        },
+        'seg-2': {
+          height: 10,
+          tiles: [],
+          top: 190,
+          width: 800,
+        },
+      },
+    };
+
+    expect(mapper.recomputeSectionMap(sections[0])).toStrictEqual(expectedMap);
   });
 });

@@ -1,6 +1,7 @@
 import {
+  createSegmentsMap,
   estimateSectionHeight,
-  recomputeSectionMap,
+  sectionFinalHeight,
   updateSectionsTop,
 } from 'lib/helpers';
 import type {
@@ -68,11 +69,12 @@ export class SectionsMapper {
   updateForSection(section: SectionType, isVisible: boolean): SectionConfig {
     const oldSectionMap: SectionConfig = this.sectionsMap[section.sectionId];
 
-    const newSectionMap: SectionConfig = recomputeSectionMap(
-      oldSectionMap,
-      section,
-      this.gridConfig
-    );
+    if (!isVisible) {
+      oldSectionMap.visible = false;
+      return oldSectionMap;
+    }
+
+    const newSectionMap: SectionConfig = this.recomputeSectionMap(section);
 
     newSectionMap.visible = isVisible;
     this.sectionsMap[section.sectionId] = newSectionMap;
@@ -95,5 +97,17 @@ export class SectionsMapper {
     };
 
     return { ...this.sectionsMap };
+  }
+
+  recomputeSectionMap(section: SectionType): SectionConfig {
+    const sectionMap: SectionConfig = this.sectionsMap[section.sectionId];
+    const segmentsMap = createSegmentsMap(section.segments, this.gridConfig);
+    const height = sectionFinalHeight(segmentsMap, this.gridConfig);
+
+    return {
+      ...sectionMap,
+      segmentsMap,
+      height,
+    };
   }
 }

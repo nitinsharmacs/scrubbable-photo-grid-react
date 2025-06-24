@@ -9,7 +9,7 @@
     "build": "tsc --p ./tsconfig-build.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "dependencies": {
     "justified-layout": "^4.1.0",

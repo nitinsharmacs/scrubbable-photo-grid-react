@@ -3,8 +3,6 @@ import createJustifiedLayout from 'justified-layout';
 import type {
   GridConfig,
   ImageType,
-  SectionConfig,
-  SectionType,
   SectionsMap,
   SegmentConfig,
   SegmentType,
@@ -63,22 +61,7 @@ export const createSegmentsMap = (
   return map;
 };
 
-export const recomputeSectionMap = (
-  sectionMap: SectionConfig,
-  section: SectionType,
-  gridConfig: GridConfig
-): SectionConfig => {
-  const segmentsMap = createSegmentsMap(section.segments, gridConfig);
-  const height = sectionFinalHeight(segmentsMap, gridConfig);
-
-  return {
-    ...sectionMap,
-    segmentsMap,
-    height,
-  };
-};
-
-const sectionFinalHeight = (
+export const sectionFinalHeight = (
   sectionSegmentsMap: SegmentsMap,
   gridConfig: GridConfig
 ): number => {
