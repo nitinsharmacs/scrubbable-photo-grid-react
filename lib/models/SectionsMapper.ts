@@ -1,9 +1,9 @@
 import {
   createSegmentsMap,
   estimateSectionHeight,
-  sectionActualHeight,
   updateSectionsTop,
 } from 'lib/helpers';
+import { SectionMap } from 'lib/models/SectionMap';
 import type {
   GridConfigType,
   SectionsMapType,
@@ -106,12 +106,13 @@ export class SectionsMapper {
   recomputeSectionMap(section: SectionType): SectionConfigType {
     const sectionMap: SectionConfigType = this.sectionsMap[section.sectionId];
     const segmentsMap = createSegmentsMap(section.segments, this.gridConfig);
-    const height = sectionActualHeight(segmentsMap, this.gridConfig);
+
+    const sectionMapper = new SectionMap(this.gridConfig, segmentsMap);
 
     return {
       ...sectionMap,
-      segmentsMap,
-      height,
+      segmentsMap: segmentsMap,
+      height: sectionMapper.height,
     };
   }
 }

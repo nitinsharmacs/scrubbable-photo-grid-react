@@ -4,7 +4,6 @@ import type {
   GridConfigType,
   ImageType,
   SectionsMapType,
-  SegmentConfigType,
   SegmentType,
   SegmentsMapType,
   TileType,
@@ -59,18 +58,6 @@ export const createSegmentsMap = (
   delete map['prev'];
 
   return map;
-};
-
-export const sectionActualHeight = (
-  sectionSegmentsMap: SegmentsMapType,
-  gridConfig: GridConfigType
-): number => {
-  return Object.values(sectionSegmentsMap).reduce<number>(
-    (height: number, segmentConfig: SegmentConfigType) => {
-      return gridConfig.segmentMargin + segmentConfig.height + height;
-    },
-    0
-  );
 };
 
 export const updateSectionsTop = (

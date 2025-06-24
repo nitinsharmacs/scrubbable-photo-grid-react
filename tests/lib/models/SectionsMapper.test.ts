@@ -1,5 +1,10 @@
 import { SectionsMapper } from 'lib/models/SectionsMapper';
-import { GridConfig, SectionConfig, SectionsMap, SectionType } from 'lib/types';
+import {
+  GridConfigType,
+  SectionConfigType,
+  SectionsMapType,
+  SectionType,
+} from 'lib/types';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 interface LocalTestContext {
@@ -8,7 +13,7 @@ interface LocalTestContext {
 }
 
 describe('SectionsMapper', () => {
-  const gridConfig: GridConfig = {
+  const gridConfig: GridConfigType = {
     containerWidth: 800,
     segmentMargin: 10,
     sectionMargin: 20,
@@ -28,7 +33,7 @@ describe('SectionsMapper', () => {
     mapper,
     sections,
   }) => {
-    const expectedMap: SectionsMap = {
+    const expectedMap: SectionsMapType = {
       sec1: {
         top: 20,
         height: 150,
@@ -97,7 +102,7 @@ describe('SectionsMapper', () => {
     };
     mapper.createMap([section]);
 
-    const expected: SectionConfig = {
+    const expected: SectionConfigType = {
       top: 20,
       height: 180,
       visible: true,
@@ -148,7 +153,7 @@ describe('SectionsMapper', () => {
     };
     mapper.createMap([section]);
 
-    const expected: SectionConfig = {
+    const expected: SectionConfigType = {
       top: 20,
       height: 150,
       visible: false,
@@ -166,7 +171,7 @@ describe('SectionsMapper', () => {
   }) => {
     mapper.createMap(sections);
 
-    const expected: SectionsMap = {
+    const expected: SectionsMapType = {
       sec1: {
         top: 20,
         height: 150,
@@ -225,7 +230,7 @@ describe('SectionsMapper', () => {
     ];
     mapper.createMap(sections);
 
-    const expectedMap: SectionConfig = {
+    const expectedMap: SectionConfigType = {
       top: 20,
       height: 200,
       visible: false,
