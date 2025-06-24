@@ -4,14 +4,14 @@ import './grid.css';
 import Section from 'lib/components/Section/Section';
 import { SectionsMapper } from './models/SectionsMapper';
 import type {
-  GridConfig,
-  SectionConfig,
-  SectionsMap,
+  GridConfigType,
+  SectionConfigType,
+  SectionsMapType,
   SectionType,
 } from 'lib/types';
 import store from '../data/store.json';
 
-const gridConfig: GridConfig = {
+const gridConfig: GridConfigType = {
   containerWidth: 800,
   segmentMargin: 10,
   sectionMargin: 20,
@@ -23,29 +23,26 @@ const loadedSections = store.slice(0, 5) as SectionType[];
 const Grid = () => {
   const gridRef = createRef<HTMLDivElement>();
 
-  const [config, setConfig] = useState<GridConfig>(gridConfig);
+  const [config, setConfig] = useState<GridConfigType>(gridConfig);
 
   const [sections, updateSections] = useState<SectionType[]>(loadedSections);
 
   const sectionsMapper = useMemo(() => new SectionsMapper(config), [config]);
 
-  const [sectionsMap, updateSectionsMap] = useState<SectionsMap>(
+  const [sectionsMap, updateSectionsMap] = useState<SectionsMapType>(
     sectionsMapper.createMap.bind(sectionsMapper, sections)
   );
 
   const intersectionHandler: IntersectionObserverCallback = useCallback(
     (sectionsEntry: IntersectionObserverEntry[]) => {
       sectionsEntry.forEach((sectionEntry: IntersectionObserverEntry) => {
-        const oldSectionMap: SectionConfig = sectionsMapper.getSectionConfig(
-          sectionEntry.target.id
-        );
+        const oldSectionMap: SectionConfigType =
+          sectionsMapper.getSectionConfig(sectionEntry.target.id);
 
         const section: SectionType = sections[oldSectionMap.index];
 
-        const newSectionMap: SectionConfig = sectionsMapper.updateForSection(
-          section,
-          sectionEntry.isIntersecting
-        );
+        const newSectionMap: SectionConfigType =
+          sectionsMapper.updateForSection(section, sectionEntry.isIntersecting);
 
         sectionsMapper.updateSectionsTopFrom(
           oldSectionMap.index + 1,

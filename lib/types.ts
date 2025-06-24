@@ -26,31 +26,31 @@ export type ImageType = {
   };
 };
 
-export type SegmentConfig = {
+export type SegmentConfigType = {
   top: number;
   width: number;
   height: number;
   tiles: TileType[];
 };
 
-export type SegmentsMap = {
-  [key: string]: SegmentConfig;
+export type SegmentsMapType = {
+  [key: string]: SegmentConfigType;
 };
 
-export type SectionConfig = {
+export type SectionConfigType = {
   height: number;
   width?: number;
   top: number;
   visible: boolean;
   index: number;
-  segmentsMap: SegmentsMap;
+  segmentsMap: SegmentsMapType;
 };
 
-export type SectionsMap = {
-  [key: string]: SectionConfig;
+export type SectionsMapType = {
+  [key: string]: SectionConfigType;
 };
 
-export type GridConfig = {
+export type GridConfigType = {
   containerWidth: number;
   sectionMargin: number;
   segmentMargin: number;

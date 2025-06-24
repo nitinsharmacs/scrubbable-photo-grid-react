@@ -1,29 +1,29 @@
 import {
   createSegmentsMap,
   estimateSectionHeight,
-  sectionFinalHeight,
+  sectionActualHeight,
   updateSectionsTop,
 } from 'lib/helpers';
 import type {
-  GridConfig,
-  SectionsMap,
+  GridConfigType,
+  SectionsMapType,
   SectionType,
-  SectionConfig,
+  SectionConfigType,
 } from 'lib/types';
 
 export class SectionsMapper {
-  private readonly gridConfig: GridConfig;
+  private readonly gridConfig: GridConfigType;
 
-  private sectionsMap: SectionsMap;
+  private sectionsMap: SectionsMapType;
 
-  constructor(gridConfig: GridConfig) {
+  constructor(gridConfig: GridConfigType) {
     this.gridConfig = gridConfig;
     this.sectionsMap = {};
   }
 
-  createMap(sections: SectionType[]): SectionsMap {
-    const map = sections.reduce<SectionsMap>(
-      (map: SectionsMap, section: SectionType, index: number) => {
+  createMap(sections: SectionType[]): SectionsMapType {
+    const map = sections.reduce<SectionsMapType>(
+      (map: SectionsMapType, section: SectionType, index: number) => {
         const sectionHeight = estimateSectionHeight(
           section.totalImages,
           this.gridConfig
@@ -44,7 +44,7 @@ export class SectionsMapper {
               this.gridConfig.sectionMargin +
               map['prev'].height,
           },
-        } as SectionsMap;
+        } as SectionsMapType;
       },
       {
         prev: { height: 0, top: 0, visible: false, index: -1, segmentsMap: {} },
@@ -58,23 +58,27 @@ export class SectionsMapper {
     return { ...this.sectionsMap };
   }
 
-  getMap(): SectionsMap {
+  getMap(): SectionsMapType {
     return { ...this.sectionsMap };
   }
 
-  getSectionConfig(sectionId: string): SectionConfig {
+  getSectionConfig(sectionId: string): SectionConfigType {
     return { ...this.sectionsMap[sectionId] };
   }
 
-  updateForSection(section: SectionType, isVisible: boolean): SectionConfig {
-    const oldSectionMap: SectionConfig = this.sectionsMap[section.sectionId];
+  updateForSection(
+    section: SectionType,
+    isVisible: boolean
+  ): SectionConfigType {
+    const oldSectionMap: SectionConfigType =
+      this.sectionsMap[section.sectionId];
 
     if (!isVisible) {
       oldSectionMap.visible = false;
       return oldSectionMap;
     }
 
-    const newSectionMap: SectionConfig = this.recomputeSectionMap(section);
+    const newSectionMap: SectionConfigType = this.recomputeSectionMap(section);
 
     newSectionMap.visible = isVisible;
     this.sectionsMap[section.sectionId] = newSectionMap;
@@ -86,7 +90,7 @@ export class SectionsMapper {
     sectionPos: number,
     delta: number,
     sections: SectionType[]
-  ): SectionsMap {
+  ): SectionsMapType {
     const nextToBeSectionsId: string[] = sections
       .slice(sectionPos)
       .map((section: SectionType) => section.sectionId);
@@ -99,10 +103,10 @@ export class SectionsMapper {
     return { ...this.sectionsMap };
   }
 
-  recomputeSectionMap(section: SectionType): SectionConfig {
-    const sectionMap: SectionConfig = this.sectionsMap[section.sectionId];
+  recomputeSectionMap(section: SectionType): SectionConfigType {
+    const sectionMap: SectionConfigType = this.sectionsMap[section.sectionId];
     const segmentsMap = createSegmentsMap(section.segments, this.gridConfig);
-    const height = sectionFinalHeight(segmentsMap, this.gridConfig);
+    const height = sectionActualHeight(segmentsMap, this.gridConfig);
 
     return {
       ...sectionMap,

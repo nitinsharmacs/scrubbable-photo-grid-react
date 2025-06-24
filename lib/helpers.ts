@@ -1,12 +1,12 @@
 import createJustifiedLayout from 'justified-layout';
 
 import type {
-  GridConfig,
+  GridConfigType,
   ImageType,
-  SectionsMap,
-  SegmentConfig,
+  SectionsMapType,
+  SegmentConfigType,
   SegmentType,
-  SegmentsMap,
+  SegmentsMapType,
   TileType,
 } from 'lib/types';
 
@@ -15,7 +15,7 @@ const COALESCING_FACTOR: number = 7 / 10;
 
 export const estimateSectionHeight = (
   totalImages: number,
-  config: GridConfig
+  config: GridConfigType
 ): number => {
   const unwrappedWidth =
     IMAGE_ASPECT_RATIO *
@@ -28,10 +28,10 @@ export const estimateSectionHeight = (
 
 export const createSegmentsMap = (
   segments: SegmentType[],
-  gridConfig: GridConfig
-): SegmentsMap => {
-  const map = segments.reduce<SegmentsMap>(
-    (map: SegmentsMap, segment: SegmentType) => {
+  gridConfig: GridConfigType
+): SegmentsMapType => {
+  const map = segments.reduce<SegmentsMapType>(
+    (map: SegmentsMapType, segment: SegmentType) => {
       const segmentLayout = createJustifiedLayout(
         segment.images.map((image: ImageType) => image.metadata),
         gridConfig
@@ -51,7 +51,7 @@ export const createSegmentsMap = (
           ...map.prev,
           height: segmentHeight + gridConfig.segmentMargin + map['prev'].height,
         },
-      } as SegmentsMap;
+      } as SegmentsMapType;
     },
     { prev: { height: 0, top: 0, width: 0, tiles: [] } }
   );
@@ -61,12 +61,12 @@ export const createSegmentsMap = (
   return map;
 };
 
-export const sectionFinalHeight = (
-  sectionSegmentsMap: SegmentsMap,
-  gridConfig: GridConfig
+export const sectionActualHeight = (
+  sectionSegmentsMap: SegmentsMapType,
+  gridConfig: GridConfigType
 ): number => {
   return Object.values(sectionSegmentsMap).reduce<number>(
-    (height: number, segmentConfig: SegmentConfig) => {
+    (height: number, segmentConfig: SegmentConfigType) => {
       return gridConfig.segmentMargin + segmentConfig.height + height;
     },
     0
@@ -74,11 +74,11 @@ export const sectionFinalHeight = (
 };
 
 export const updateSectionsTop = (
-  sectionsMap: SectionsMap,
+  sectionsMap: SectionsMapType,
   toBeUpdatedSectionsId: string[],
   delta: number
-): SectionsMap => {
-  return toBeUpdatedSectionsId.reduce<SectionsMap>(
+): SectionsMapType => {
+  return toBeUpdatedSectionsId.reduce<SectionsMapType>(
     (map, sectionId: string) => {
       return {
         ...map,

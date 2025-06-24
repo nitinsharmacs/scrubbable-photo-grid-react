@@ -1,7 +1,7 @@
-import type { GridConfig, SectionConfig, SectionType } from 'lib/types';
+import type { GridConfigType, SectionConfigType, SectionType } from 'lib/types';
 
 export interface SectionProps {
   section: SectionType;
-  config: GridConfig;
-  map: SectionConfig;
+  config: GridConfigType;
+  map: SectionConfigType;
 }
