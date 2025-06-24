@@ -3,7 +3,6 @@ import createJustifiedLayout from 'justified-layout';
 import type {
   GridConfigType,
   ImageType,
-  SectionsMapType,
   SegmentType,
   SegmentsMapType,
   TileType,
@@ -58,22 +57,4 @@ export const createSegmentsMap = (
   delete map['prev'];
 
   return map;
-};
-
-export const updateSectionsTop = (
-  sectionsMap: SectionsMapType,
-  toBeUpdatedSectionsId: string[],
-  delta: number
-): SectionsMapType => {
-  return toBeUpdatedSectionsId.reduce<SectionsMapType>(
-    (map, sectionId: string) => {
-      return {
-        ...map,
-        [sectionId]: { ...map[sectionId], top: map[sectionId].top + delta },
-      };
-    },
-    {
-      ...sectionsMap,
-    }
-  );
 };

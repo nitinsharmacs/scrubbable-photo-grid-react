@@ -1,8 +1,4 @@
-import {
-  createSegmentsMap,
-  estimateSectionHeight,
-  updateSectionsTop,
-} from 'lib/helpers';
+import { createSegmentsMap, estimateSectionHeight } from 'lib/helpers';
 import { SectionMap } from 'lib/models/SectionMap';
 import type {
   GridConfigType,
@@ -86,6 +82,23 @@ export class SectionsMapper {
     return newSectionMap;
   }
 
+  private updateSectionsTop(
+    toBeUpdatedSectionsId: string[],
+    delta: number
+  ): SectionsMapType {
+    return toBeUpdatedSectionsId.reduce<SectionsMapType>(
+      (map, sectionId: string) => {
+        return {
+          ...map,
+          [sectionId]: { ...map[sectionId], top: map[sectionId].top + delta },
+        };
+      },
+      {
+        ...this.sectionsMap,
+      }
+    );
+  }
+
   updateSectionsTopFrom(
     sectionPos: number,
     delta: number,
@@ -97,7 +110,7 @@ export class SectionsMapper {
 
     this.sectionsMap = {
       ...this.sectionsMap,
-      ...updateSectionsTop(this.sectionsMap, nextToBeSectionsId, delta),
+      ...this.updateSectionsTop(nextToBeSectionsId, delta),
     };
 
     return { ...this.sectionsMap };
