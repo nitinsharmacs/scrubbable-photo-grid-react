@@ -9,16 +9,16 @@ import type {
   SectionsMapType,
   SectionType,
 } from 'lib/types';
-import store from '../data/store.json';
+import store from '../data/populated.json';
 
 const gridConfig: GridConfigType = {
-  containerWidth: 800,
+  containerWidth: 900,
   segmentMargin: 10,
   sectionMargin: 20,
   targetRowHeight: 150,
 };
 
-const loadedSections = store.slice(0, 5) as SectionType[];
+const loadedSections = store.slice(0, 10) as SectionType[];
 
 const Grid = () => {
   const gridRef = createRef<HTMLDivElement>();

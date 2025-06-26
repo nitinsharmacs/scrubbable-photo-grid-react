@@ -14,8 +14,12 @@ const Segment = ({ segment, map }: SegmentProps) => {
         top: `${map.top}px`,
       }}
     >
-      {map.tiles.map((tile: TileType) => (
-        <Tile tile={tile} />
+      {map.tiles.map((tile: TileType, index: number) => (
+        <Tile
+          key={segment.images[index].imageId}
+          tile={tile}
+          image={segment.images[index]}
+        />
       ))}
     </div>
   );

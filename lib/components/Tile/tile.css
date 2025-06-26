@@ -3,3 +3,11 @@
   display: block;
   position: absolute;
 }
+
+.tile > figure {
+  margin: 0;
+}
+
+.tile img {
+  width: 100%;
+}

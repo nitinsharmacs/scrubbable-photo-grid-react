@@ -24,6 +24,8 @@ export type ImageType = {
     height: number;
     orientation?: number;
   };
+  imageurl: string;
+  imageId: string;
 };
 
 export type SegmentConfigType = {

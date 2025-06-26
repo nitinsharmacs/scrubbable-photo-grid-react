@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 import Segment from 'lib/components/Segment/Segment';
-import { SegmentConfig, SegmentType } from 'lib/types';
+import { SegmentConfigType, SegmentType } from 'lib/types';
 import { describe, expect, it } from 'vitest';
 
 describe('Segment', () => {
@@ -13,7 +13,7 @@ describe('Segment', () => {
       images: [],
     };
 
-    const map: SegmentConfig = {
+    const map: SegmentConfigType = {
       top: 0,
       width: 100,
       height: 100,
@@ -29,12 +29,16 @@ describe('Segment', () => {
       header: 'header',
       images: [
         {
+          imageId: 'something',
+          imageurl: 'something',
           metadata: {
             width: 100,
             height: 100,
           },
         },
         {
+          imageId: 'something2',
+          imageurl: 'something',
           metadata: {
             width: 50,
             height: 100,
@@ -43,7 +47,7 @@ describe('Segment', () => {
       ],
     };
 
-    const map: SegmentConfig = {
+    const map: SegmentConfigType = {
       top: 0,
       width: 100,
       height: 100,

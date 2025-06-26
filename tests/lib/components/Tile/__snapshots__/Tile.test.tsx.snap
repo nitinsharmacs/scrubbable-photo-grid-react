@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tile > should match snapshot 1`] = `
+<div>
+  <div
+    class="tile"
+    id="something1"
+    style="width: 0px; height: 0px; left: 0px; top: 0px;"
+  >
+    <figure>
+      <img
+        src="somehing"
+      />
+    </figure>
+  </div>
+</div>
+`;
