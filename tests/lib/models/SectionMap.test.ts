@@ -36,6 +36,6 @@ describe('SectionMap', () => {
   it('should get height of section', () => {
     const sectionMapper = new SectionMap(gridConfig, segmentsMap);
 
-    expect(sectionMapper.height).toBe(200);
+    expect(sectionMapper.height).toBe(220);
   });
 });

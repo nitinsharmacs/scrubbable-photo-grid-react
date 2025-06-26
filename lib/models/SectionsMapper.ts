@@ -37,7 +37,7 @@ export class SectionsMapper {
             ...map.prev,
             height:
               sectionHeight +
-              this.gridConfig.sectionMargin +
+              this.gridConfig.sectionMargin * 2 +
               map['prev'].height,
           },
         } as SectionsMapType;

@@ -16,7 +16,9 @@ export class SectionMap {
   get height(): number {
     return Object.values(this.segmentsMap).reduce<number>(
       (height: number, segmentConfig: SegmentConfigType) => {
-        return this.gridConfig.segmentMargin + segmentConfig.height + height;
+        return (
+          this.gridConfig.segmentMargin * 2 + segmentConfig.height + height
+        );
       },
       0
     );

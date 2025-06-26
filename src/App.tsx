@@ -1,4 +1,4 @@
-import Grid from 'lib/grid.tsx';
+import Grid from 'lib/Grid/grid';
 import './App.css';
 
 function App() {

@@ -2,19 +2,19 @@ import { createRef, useCallback, useEffect, useMemo, useState } from 'react';
 import './grid.css';
 
 import Section from 'lib/components/Section/Section';
-import { SectionsMapper } from './models/SectionsMapper';
+import { SectionsMapper } from '../models/SectionsMapper';
 import type {
   GridConfigType,
   SectionConfigType,
   SectionsMapType,
   SectionType,
 } from 'lib/types';
-import store from '../data/populated.json';
+import store from '../../data/populated.json';
 
 const gridConfig: GridConfigType = {
   containerWidth: 900,
-  segmentMargin: 10,
-  sectionMargin: 20,
+  segmentMargin: 0,
+  sectionMargin: 10,
   targetRowHeight: 150,
 };
 

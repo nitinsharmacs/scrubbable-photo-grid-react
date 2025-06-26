@@ -42,14 +42,14 @@ describe('SectionsMapper', () => {
         segmentsMap: {},
       },
       sec2: {
-        top: 190,
+        top: 210,
         height: 600,
         visible: false,
         index: 1,
         segmentsMap: {},
       },
       sec3: {
-        top: 810,
+        top: 850,
         height: 4800,
         visible: false,
         index: 2,
@@ -81,7 +81,7 @@ describe('SectionsMapper', () => {
   it<LocalTestContext>('should update section map based when visible', ({
     mapper,
   }) => {
-    const section = {
+    const section: SectionType = {
       sectionId: 'sec1',
       totalImages: 1,
       segments: [
@@ -95,6 +95,8 @@ describe('SectionsMapper', () => {
                 height: 100,
                 orientation: 1,
               },
+              imageurl: 'some url',
+              imageId: 'some id',
             },
           ],
         },
@@ -104,7 +106,7 @@ describe('SectionsMapper', () => {
 
     const expected: SectionConfigType = {
       top: 20,
-      height: 180,
+      height: 190,
       visible: true,
       index: 0,
       segmentsMap: {
@@ -132,7 +134,7 @@ describe('SectionsMapper', () => {
   it<LocalTestContext>('should update section map when invisible', ({
     mapper,
   }) => {
-    const section = {
+    const section: SectionType = {
       sectionId: 'sec1',
       totalImages: 1,
       segments: [
@@ -146,6 +148,8 @@ describe('SectionsMapper', () => {
                 height: 100,
                 orientation: 1,
               },
+              imageId: 'some id',
+              imageurl: 'some url',
             },
           ],
         },
@@ -180,14 +184,14 @@ describe('SectionsMapper', () => {
         segmentsMap: {},
       },
       sec2: {
-        top: 192,
+        top: 212,
         height: 600,
         visible: false,
         index: 1,
         segmentsMap: {},
       },
       sec3: {
-        top: 812,
+        top: 852,
         height: 4800,
         visible: false,
         index: 2,
@@ -215,6 +219,8 @@ describe('SectionsMapper', () => {
                   height: 100,
                   orientation: 1,
                 },
+                imageId: 'something',
+                imageurl: 'someurl',
               },
             ],
           },
@@ -232,7 +238,7 @@ describe('SectionsMapper', () => {
 
     const expectedMap: SectionConfigType = {
       top: 20,
-      height: 200,
+      height: 220,
       visible: false,
       index: 0,
       segmentsMap: {
@@ -253,7 +259,7 @@ describe('SectionsMapper', () => {
         'seg-2': {
           height: 10,
           tiles: [],
-          top: 190,
+          top: 200,
           width: 800,
         },
       },

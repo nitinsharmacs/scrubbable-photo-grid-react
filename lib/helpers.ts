@@ -47,7 +47,8 @@ export const createSegmentsMap = (
         },
         prev: {
           ...map.prev,
-          height: segmentHeight + gridConfig.segmentMargin + map['prev'].height,
+          height:
+            segmentHeight + gridConfig.segmentMargin * 2 + map['prev'].height,
         },
       } as SegmentsMapType;
     },

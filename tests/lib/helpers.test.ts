@@ -1,9 +1,9 @@
 import { createSegmentsMap, estimateSectionHeight } from 'lib/helpers';
-import { GridConfig, SegmentType, SegmentsMap } from 'lib/types';
+import { GridConfigType, SegmentType, SegmentsMapType } from 'lib/types';
 import { describe, expect, it } from 'vitest';
 
 describe('helpers', () => {
-  const gridConfig: GridConfig = {
+  const gridConfig: GridConfigType = {
     containerWidth: 800,
     segmentMargin: 10,
     sectionMargin: 20,
@@ -26,6 +26,8 @@ describe('helpers', () => {
               height: 100,
               orientation: 1,
             },
+            imageurl: 'some url',
+            imageId: 'some id',
           },
         ],
       },
@@ -36,7 +38,7 @@ describe('helpers', () => {
       },
     ];
 
-    const expected: SegmentsMap = {
+    const expected: SegmentsMapType = {
       'seg-1': {
         top: 10,
         width: 800,
@@ -52,7 +54,7 @@ describe('helpers', () => {
         ],
       },
       'seg-2': {
-        top: 190,
+        top: 200,
         width: 800,
         height: 10,
         tiles: [],
