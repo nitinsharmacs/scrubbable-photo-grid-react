@@ -4,33 +4,19 @@ import './grid.css';
 import Section from 'lib/components/Section/Section';
 import { SectionsMapper } from '../models/SectionsMapper';
 import type {
-  GridConfigType,
   SectionConfigType,
   SectionsMapType,
   SectionType,
 } from 'lib/types';
-import store from '../../data/populated.json';
+import type { GridProps } from 'lib/Grid/types';
 
-const gridConfig: GridConfigType = {
-  containerWidth: 900,
-  segmentMargin: 0,
-  sectionMargin: 10,
-  targetRowHeight: 150,
-};
-
-const loadedSections = store.slice(0, 10) as SectionType[];
-
-const Grid = () => {
+const Grid = ({ config, gridData }: GridProps) => {
   const gridRef = createRef<HTMLDivElement>();
-
-  const [config, setConfig] = useState<GridConfigType>(gridConfig);
-
-  const [sections, updateSections] = useState<SectionType[]>(loadedSections);
 
   const sectionsMapper = useMemo(() => new SectionsMapper(config), [config]);
 
   const [sectionsMap, updateSectionsMap] = useState<SectionsMapType>(
-    sectionsMapper.createMap.bind(sectionsMapper, sections)
+    sectionsMapper.createMap.bind(sectionsMapper, gridData)
   );
 
   const intersectionHandler: IntersectionObserverCallback = useCallback(
@@ -39,7 +25,7 @@ const Grid = () => {
         const oldSectionMap: SectionConfigType =
           sectionsMapper.getSectionConfig(sectionEntry.target.id);
 
-        const section: SectionType = sections[oldSectionMap.index];
+        const section: SectionType = gridData[oldSectionMap.index];
 
         const newSectionMap: SectionConfigType =
           sectionsMapper.updateForSection(section, sectionEntry.isIntersecting);
@@ -47,7 +33,7 @@ const Grid = () => {
         sectionsMapper.updateSectionsTopFrom(
           oldSectionMap.index + 1,
           newSectionMap.height - oldSectionMap.height,
-          sections
+          gridData
         );
       });
 
@@ -72,11 +58,11 @@ const Grid = () => {
 
   return (
     <div className='grid' ref={gridRef}>
-      {sections.map((section: SectionType) => (
+      {gridData.map((section: SectionType) => (
         <Section
           key={section.sectionId}
           section={section}
-          config={gridConfig}
+          config={config}
           map={sectionsMap[section.sectionId]}
         />
       ))}
