@@ -9,11 +9,17 @@ import type {
   SectionType,
 } from 'lib/types';
 import type { GridProps } from 'lib/Grid/types';
+import { useGridConfig } from 'lib/Grid/grid.hooks';
 
-const Grid = ({ config, gridData }: GridProps) => {
+const Grid = ({ config, gridData, parent }: GridProps) => {
   const gridRef = createRef<HTMLDivElement>();
 
-  const sectionsMapper = useMemo(() => new SectionsMapper(config), [config]);
+  const gridConfig = useGridConfig(config, parent);
+
+  const sectionsMapper = useMemo(
+    () => new SectionsMapper(gridConfig),
+    [gridConfig]
+  );
 
   const [sectionsMap, updateSectionsMap] = useState<SectionsMapType>(
     sectionsMapper.createMap.bind(sectionsMapper, gridData)
@@ -39,7 +45,7 @@ const Grid = ({ config, gridData }: GridProps) => {
 
       updateSectionsMap(sectionsMapper.getMap());
     },
-    []
+    [sectionsMapper]
   );
 
   useEffect(() => {
@@ -54,7 +60,15 @@ const Grid = ({ config, gridData }: GridProps) => {
     gridRef.current
       ?.querySelectorAll('.section')
       .forEach(sectionObserver.observe.bind(sectionObserver));
-  }, []);
+
+    return () => {
+      sectionObserver.disconnect();
+    };
+  }, [intersectionHandler]);
+
+  useEffect(() => {
+    updateSectionsMap(sectionsMapper.createMap(gridData));
+  }, [sectionsMapper]);
 
   return (
     <div className='grid' ref={gridRef}>
@@ -62,7 +76,7 @@ const Grid = ({ config, gridData }: GridProps) => {
         <Section
           key={section.sectionId}
           section={section}
-          config={config}
+          config={gridConfig}
           map={sectionsMap[section.sectionId]}
         />
       ))}

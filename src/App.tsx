@@ -1,6 +1,6 @@
 import Grid from 'lib/Grid/grid';
 import './App.css';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import type { GridConfigType, SectionType } from 'lib/types';
 
 import store from '../data/populated.json';
@@ -19,10 +19,12 @@ function App() {
 
   const [sections, updateSections] = useState<SectionType[]>(loadedSections);
 
+  const parentRef = createRef<HTMLDivElement>();
+
   return (
-    <>
-      <Grid config={config} gridData={sections} />
-    </>
+    <div ref={parentRef}>
+      <Grid config={config} gridData={sections} parent={parentRef} />
+    </div>
   );
 }
 
