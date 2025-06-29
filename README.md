@@ -1,54 +1,76 @@
-# React + TypeScript + Vite
+# Scrubbable Photo Grid
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a scrubbable photo grid react component that can be used in your image viewer applications.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Clone the github repo.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+git clone https://github.com/nitinsharmacs/scrubbable-photo-grid-react.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install the dependencies.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+npm install
+```
+
+3. View the demo.
+
+```
+npm run dev
+```
+
+4. Building the dist
+
+```
+npm run build
+```
+
+## Usage
+
+Once build, grid component can be imported in your application as shown below.
+
+```javascript
+import { Grid } from 'scrubbable-photo-grid';
+import type {
+  GridConfigType,
+  SectionType,
+} from 'scrubbable-photo-grid/dist/types';
+
+import { createRef } from 'react';
+
+import images from 'images.json';
+
+const gridData = images.slice(0, 10) as SectionType[];
+
+const gridConfig: GridConfigType = {
+  containerWidth: 900,
+  targetRowHeight: 150,
+  segmentMargin: 5,
+  sectionMargin: 10,
+};
+
+const Photos = () => {
+  const ref = createRef<HTMLDivElement>();
+
+  return (
+    <div className='photos' ref={ref}>
+      <Grid gridData={gridData} config={gridConfig} parent={ref} />
+    </div>
+  );
+};
+
+export default Photos;
+```
+
+You can find the structure of `images.json` from the test data at path `tests/data/`.
+
+## Notice
+
+This is in an active development, so please expect the bugs.
+
+## Resources
+
+1. https://medium.com/google-design/google-photos-45b714dfbed1
