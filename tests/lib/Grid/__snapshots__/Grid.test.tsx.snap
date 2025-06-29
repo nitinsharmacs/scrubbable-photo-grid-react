@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Grid > should match snapshot 1`] = `
+<div>
+  <div
+    class="grid"
+  >
+    <div
+      class="section"
+      id="2019_04"
+      style="width: 800px; height: 380px; top: 20px;"
+    >
+      <div
+        class="segment"
+        id="2019_04_25"
+        style="width: 10px; height: 10px; top: 10px;"
+      />
+      <div
+        class="segment"
+        id="2019_04_24"
+        style="width: 10px; height: 10px; top: 10px;"
+      />
+    </div>
+    <div
+      class="section"
+      id="2018_12"
+      style="width: 800px; height: 150px; top: 440px;"
+    />
+  </div>
+</div>
+`;
