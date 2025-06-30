@@ -11,15 +11,26 @@ exports[`Grid > should match snapshot 1`] = `
       style="width: 800px; height: 380px; top: 20px;"
     >
       <div
-        class="segment"
-        id="2019_04_25"
-        style="width: 10px; height: 10px; top: 10px;"
-      />
+        class="section-header"
+      >
+        <h2>
+          April, 2019
+        </h2>
+      </div>
       <div
-        class="segment"
-        id="2019_04_24"
-        style="width: 10px; height: 10px; top: 10px;"
-      />
+        class="section-content"
+      >
+        <div
+          class="segment"
+          id="2019_04_25"
+          style="width: 10px; height: 10px; top: 10px;"
+        />
+        <div
+          class="segment"
+          id="2019_04_24"
+          style="width: 10px; height: 10px; top: 10px;"
+        />
+      </div>
     </div>
     <div
       class="section"

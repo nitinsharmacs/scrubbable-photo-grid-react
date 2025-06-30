@@ -2,6 +2,7 @@ export type SectionType = {
   sectionId: string;
   totalImages: number;
   segments: SegmentType[];
+  header: string;
 };
 
 export type SegmentType = {
@@ -46,6 +47,7 @@ export type SectionConfigType = {
   visible: boolean;
   index: number;
   segmentsMap: SegmentsMapType;
+  headerHeight: number;
 };
 
 export type SectionsMapType = {

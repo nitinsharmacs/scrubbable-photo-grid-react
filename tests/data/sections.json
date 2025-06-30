@@ -2,18 +2,27 @@
   {
     "sectionId": "2019_04",
     "totalImages": 3,
+    "header": "April, 2019",
     "segments": [
       {
         "segmentId": "2019_04_25",
         "header": "Thu, April 25, 2019",
         "images": [
           {
-            "metadata": { "width": 634, "height": 545, "orientation": 1 },
+            "metadata": {
+              "width": 634,
+              "height": 545,
+              "orientation": 1
+            },
             "imageurl": "/bad",
             "imageId": "f350c526-6e91-417c-a4dd-5b776b52592a"
           },
           {
-            "metadata": { "width": 1184, "height": 865, "orientation": 1 },
+            "metadata": {
+              "width": 1184,
+              "height": 865,
+              "orientation": 1
+            },
             "imageurl": "/bad",
             "imageId": "e34f3222-1113-4f7e-9bf1-1d09fefaa0f6"
           }
@@ -24,7 +33,11 @@
         "header": "Thu, April 24, 2019",
         "images": [
           {
-            "metadata": { "width": 1080, "height": 727, "orientation": 1 },
+            "metadata": {
+              "width": 1080,
+              "height": 727,
+              "orientation": 1
+            },
             "imageurl": "/bad",
             "imageId": "d56ebf9f-5874-47ec-826c-289e7a273c6c"
           }
@@ -34,6 +47,7 @@
   },
   {
     "sectionId": "2018_12",
+    "header": "December, 2018",
     "totalImages": 4,
     "segments": [
       {
@@ -41,7 +55,11 @@
         "header": "Mon, December 3, 2018",
         "images": [
           {
-            "metadata": { "width": 966, "height": 775, "orientation": 1 },
+            "metadata": {
+              "width": 966,
+              "height": 775,
+              "orientation": 1
+            },
             "imageurl": "/bad",
             "imageId": "2ec987e2-db45-4048-9000-2f2ab8b9feff"
           }
@@ -52,17 +70,29 @@
         "header": "Sun, December 2, 2018",
         "images": [
           {
-            "metadata": { "width": 964, "height": 541, "orientation": 1 },
+            "metadata": {
+              "width": 964,
+              "height": 541,
+              "orientation": 1
+            },
             "imageurl": "/bad",
             "imageId": "cc2ecefa-d6f0-48ec-86f4-aefb71ef8e9b"
           },
           {
-            "metadata": { "width": 960, "height": 738, "orientation": 1 },
+            "metadata": {
+              "width": 960,
+              "height": 738,
+              "orientation": 1
+            },
             "imageurl": "/bad",
             "imageId": "9b5b8e87-cca7-45a0-b66e-3001a4e197d3"
           },
           {
-            "metadata": { "width": 645, "height": 629, "orientation": 1 },
+            "metadata": {
+              "width": 645,
+              "height": 629,
+              "orientation": 1
+            },
             "imageurl": "/bad",
             "imageId": "4397002b-ea16-403d-992c-59959a3d9d0e"
           }

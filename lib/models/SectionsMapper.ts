@@ -8,6 +8,7 @@ import type {
 } from 'lib/types';
 
 export class SectionsMapper {
+  static readonly HEADER_HEIGHT: number = 50;
   private readonly gridConfig: GridConfigType;
 
   private sectionsMap: SectionsMapType;
@@ -27,23 +28,32 @@ export class SectionsMapper {
         return {
           ...map,
           [section.sectionId]: {
-            height: sectionHeight,
+            height: sectionHeight + SectionsMapper.HEADER_HEIGHT,
             top: this.gridConfig.sectionMargin + map['prev'].height,
             visible: false,
             index,
             segmentsMap: {},
+            headerHeight: SectionsMapper.HEADER_HEIGHT,
           },
           prev: {
             ...map.prev,
             height:
               sectionHeight +
+              map['prev'].headerHeight +
               this.gridConfig.sectionMargin * 2 +
               map['prev'].height,
           },
         } as SectionsMapType;
       },
       {
-        prev: { height: 0, top: 0, visible: false, index: -1, segmentsMap: {} },
+        prev: {
+          height: 0,
+          top: 0,
+          visible: false,
+          index: -1,
+          segmentsMap: {},
+          headerHeight: SectionsMapper.HEADER_HEIGHT,
+        },
       }
     );
 
@@ -125,7 +135,7 @@ export class SectionsMapper {
     return {
       ...sectionMap,
       segmentsMap: segmentsMap,
-      height: sectionMapper.height,
+      height: sectionMapper.height + sectionMap.headerHeight,
     };
   }
 }

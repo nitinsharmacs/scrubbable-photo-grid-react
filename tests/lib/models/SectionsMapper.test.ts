@@ -23,9 +23,24 @@ describe('SectionsMapper', () => {
   beforeEach<LocalTestContext>((context) => {
     context.mapper = new SectionsMapper(gridConfig);
     context.sections = [
-      { sectionId: 'sec1', totalImages: 1, segments: [] },
-      { sectionId: 'sec2', totalImages: 16, segments: [] },
-      { sectionId: 'sec3', totalImages: 160, segments: [] },
+      {
+        sectionId: 'sec1',
+        totalImages: 1,
+        segments: [],
+        header: 'sec1 header',
+      },
+      {
+        sectionId: 'sec2',
+        totalImages: 16,
+        segments: [],
+        header: 'sec2 header',
+      },
+      {
+        sectionId: 'sec3',
+        totalImages: 160,
+        segments: [],
+        header: 'sec3 header',
+      },
     ];
   });
 
@@ -36,24 +51,27 @@ describe('SectionsMapper', () => {
     const expectedMap: SectionsMapType = {
       sec1: {
         top: 20,
-        height: 150,
+        height: 200,
         visible: false,
         index: 0,
         segmentsMap: {},
+        headerHeight: SectionsMapper.HEADER_HEIGHT,
       },
       sec2: {
-        top: 210,
-        height: 600,
+        top: 260,
+        height: 650,
         visible: false,
         index: 1,
         segmentsMap: {},
+        headerHeight: SectionsMapper.HEADER_HEIGHT,
       },
       sec3: {
-        top: 850,
-        height: 4800,
+        top: 950,
+        height: 4850,
         visible: false,
         index: 2,
         segmentsMap: {},
+        headerHeight: SectionsMapper.HEADER_HEIGHT,
       },
     };
     expect(mapper.createMap(sections)).toStrictEqual(expectedMap);
@@ -65,15 +83,21 @@ describe('SectionsMapper', () => {
     expect(mapper.getSectionConfig('sec1')).toStrictEqual({});
 
     const sections: SectionType[] = [
-      { sectionId: 'sec1', totalImages: 1, segments: [] },
+      {
+        sectionId: 'sec1',
+        totalImages: 1,
+        segments: [],
+        header: 'sec1 header',
+      },
     ];
 
     mapper.createMap(sections);
     expect(mapper.getSectionConfig('sec1')).toStrictEqual({
       top: 20,
-      height: 150,
+      height: 200,
       visible: false,
       index: 0,
+      headerHeight: SectionsMapper.HEADER_HEIGHT,
       segmentsMap: {},
     });
   });
@@ -84,6 +108,7 @@ describe('SectionsMapper', () => {
     const section: SectionType = {
       sectionId: 'sec1',
       totalImages: 1,
+      header: 'sec1 header',
       segments: [
         {
           segmentId: 'seg-1',
@@ -106,9 +131,10 @@ describe('SectionsMapper', () => {
 
     const expected: SectionConfigType = {
       top: 20,
-      height: 190,
+      height: 240,
       visible: true,
       index: 0,
+      headerHeight: SectionsMapper.HEADER_HEIGHT,
       segmentsMap: {
         'seg-1': {
           top: 10,
@@ -137,6 +163,7 @@ describe('SectionsMapper', () => {
     const section: SectionType = {
       sectionId: 'sec1',
       totalImages: 1,
+      header: 'sec1 header',
       segments: [
         {
           segmentId: 'seg-1',
@@ -159,10 +186,11 @@ describe('SectionsMapper', () => {
 
     const expected: SectionConfigType = {
       top: 20,
-      height: 150,
+      height: 200,
       visible: false,
       index: 0,
       segmentsMap: {},
+      headerHeight: SectionsMapper.HEADER_HEIGHT,
     };
     const actual = mapper.updateForSection(section, false);
 
@@ -178,24 +206,27 @@ describe('SectionsMapper', () => {
     const expected: SectionsMapType = {
       sec1: {
         top: 20,
-        height: 150,
+        height: 200,
         visible: false,
         index: 0,
         segmentsMap: {},
+        headerHeight: SectionsMapper.HEADER_HEIGHT,
       },
       sec2: {
-        top: 212,
-        height: 600,
+        top: 262,
+        height: 650,
         visible: false,
         index: 1,
         segmentsMap: {},
+        headerHeight: SectionsMapper.HEADER_HEIGHT,
       },
       sec3: {
-        top: 852,
-        height: 4800,
+        top: 952,
+        height: 4850,
         visible: false,
         index: 2,
         segmentsMap: {},
+        headerHeight: SectionsMapper.HEADER_HEIGHT,
       },
     };
 
@@ -208,6 +239,7 @@ describe('SectionsMapper', () => {
       {
         sectionId: 'sec1',
         totalImages: 1,
+        header: 'sec1 header',
         segments: [
           {
             segmentId: 'seg-1',
@@ -231,16 +263,27 @@ describe('SectionsMapper', () => {
           },
         ],
       },
-      { sectionId: 'sec2', totalImages: 16, segments: [] },
-      { sectionId: 'sec3', totalImages: 160, segments: [] },
+      {
+        sectionId: 'sec2',
+        totalImages: 16,
+        segments: [],
+        header: 'sec2 header',
+      },
+      {
+        sectionId: 'sec3',
+        totalImages: 160,
+        segments: [],
+        header: 'sec3 header',
+      },
     ];
     mapper.createMap(sections);
 
     const expectedMap: SectionConfigType = {
       top: 20,
-      height: 220,
+      height: 270,
       visible: false,
       index: 0,
+      headerHeight: SectionsMapper.HEADER_HEIGHT,
       segmentsMap: {
         'seg-1': {
           height: 170,

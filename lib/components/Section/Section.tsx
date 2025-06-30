@@ -16,13 +16,20 @@ const Section = ({ section, config, map }: SectionProps) => {
       }}
     >
       {map.visible ? (
-        section.segments.map((segment: SegmentType) => (
-          <Segment
-            key={segment.segmentId}
-            segment={segment}
-            map={map.segmentsMap[segment.segmentId]}
-          />
-        ))
+        <>
+          <div className='section-header' style={{ height: map.headerHeight }}>
+            <h2>{section.header}</h2>
+          </div>
+          <div className='section-content'>
+            {section.segments.map((segment: SegmentType) => (
+              <Segment
+                key={segment.segmentId}
+                segment={segment}
+                map={map.segmentsMap[segment.segmentId]}
+              />
+            ))}
+          </div>
+        </>
       ) : (
         <></>
       )}

@@ -2,7 +2,7 @@ import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from '@testing-library/react';
 
-import Grid from 'lib/Grid/grid';
+import Grid from 'lib/Grid/Grid';
 import { GridConfigType } from 'lib/types';
 
 import sections from '../../data/sections.json';
