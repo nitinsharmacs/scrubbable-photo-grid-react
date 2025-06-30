@@ -1,3 +1,4 @@
+import { SECTION_HEADER_HEIGHT } from 'lib/constants';
 import { createSegmentsMap, estimateSectionHeight } from 'lib/helpers';
 import { SectionMap } from 'lib/models/SectionMap';
 import type {
@@ -6,9 +7,7 @@ import type {
   SectionType,
   SectionConfigType,
 } from 'lib/types';
-
 export class SectionsMapper {
-  static readonly HEADER_HEIGHT: number = 50;
   private readonly gridConfig: GridConfigType;
 
   private sectionsMap: SectionsMapType;
@@ -28,18 +27,18 @@ export class SectionsMapper {
         return {
           ...map,
           [section.sectionId]: {
-            height: sectionHeight + SectionsMapper.HEADER_HEIGHT,
+            height: sectionHeight + SECTION_HEADER_HEIGHT,
             top: this.gridConfig.sectionMargin + map['prev'].height,
             visible: false,
             index,
             segmentsMap: {},
-            headerHeight: SectionsMapper.HEADER_HEIGHT,
+            headerHeight: SECTION_HEADER_HEIGHT,
           },
           prev: {
             ...map.prev,
             height:
               sectionHeight +
-              map['prev'].headerHeight +
+              SECTION_HEADER_HEIGHT +
               this.gridConfig.sectionMargin * 2 +
               map['prev'].height,
           },
@@ -52,7 +51,7 @@ export class SectionsMapper {
           visible: false,
           index: -1,
           segmentsMap: {},
-          headerHeight: SectionsMapper.HEADER_HEIGHT,
+          headerHeight: SECTION_HEADER_HEIGHT,
         },
       }
     );

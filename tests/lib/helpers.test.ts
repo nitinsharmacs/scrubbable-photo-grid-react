@@ -1,3 +1,4 @@
+import { SEGMENT_HEADER_HEIGHT } from 'lib/constants';
 import { createSegmentsMap, estimateSectionHeight } from 'lib/helpers';
 import { GridConfigType, SegmentType, SegmentsMapType } from 'lib/types';
 import { describe, expect, it } from 'vitest';
@@ -42,7 +43,8 @@ describe('helpers', () => {
       'seg-1': {
         top: 10,
         width: 800,
-        height: 170,
+        height: 210,
+        headerHeight: SEGMENT_HEADER_HEIGHT,
         tiles: [
           {
             width: 150,
@@ -54,9 +56,10 @@ describe('helpers', () => {
         ],
       },
       'seg-2': {
-        top: 200,
+        top: 240,
         width: 800,
-        height: 10,
+        height: 50,
+        headerHeight: SEGMENT_HEADER_HEIGHT,
         tiles: [],
       },
     };

@@ -2,7 +2,6 @@ import { createRef, useCallback, useEffect, useMemo, useState } from 'react';
 import './grid.css';
 
 import Section from 'lib/components/Section/Section';
-import { SectionsMapper } from '../models/SectionsMapper';
 import type {
   SectionConfigType,
   SectionsMapType,
@@ -10,6 +9,7 @@ import type {
 } from 'lib/types';
 import type { GridProps } from 'lib/Grid/types';
 import { useGridConfig } from 'lib/Grid/grid.hooks';
+import { SectionsMapper } from 'lib/models/SectionsMapper';
 
 const Grid = ({ config, gridData, parent }: GridProps) => {
   const gridRef = createRef<HTMLDivElement>();

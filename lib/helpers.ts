@@ -1,4 +1,9 @@
 import createJustifiedLayout from 'justified-layout';
+import {
+  IMAGE_ASPECT_RATIO,
+  COALESCING_FACTOR,
+  SEGMENT_HEADER_HEIGHT,
+} from 'lib/constants';
 
 import type {
   GridConfigType,
@@ -7,9 +12,6 @@ import type {
   SegmentsMapType,
   TileType,
 } from 'lib/types';
-
-const IMAGE_ASPECT_RATIO: number = 3 / 2;
-const COALESCING_FACTOR: number = 7 / 10;
 
 export const estimateSectionHeight = (
   totalImages: number,
@@ -41,18 +43,30 @@ export const createSegmentsMap = (
         ...map,
         [segment.segmentId]: {
           top: gridConfig.segmentMargin + map['prev'].height,
-          height: segmentHeight,
+          height: segmentHeight + SEGMENT_HEADER_HEIGHT,
           width: gridConfig.containerWidth,
+          headerHeight: SEGMENT_HEADER_HEIGHT,
           tiles: segmentLayout.boxes as TileType[],
         },
         prev: {
           ...map.prev,
           height:
-            segmentHeight + gridConfig.segmentMargin * 2 + map['prev'].height,
+            segmentHeight +
+            SEGMENT_HEADER_HEIGHT +
+            +gridConfig.segmentMargin * 2 +
+            map['prev'].height,
         },
       } as SegmentsMapType;
     },
-    { prev: { height: 0, top: 0, width: 0, tiles: [] } }
+    {
+      prev: {
+        height: 0,
+        top: 0,
+        width: 0,
+        tiles: [],
+        headerHeight: SEGMENT_HEADER_HEIGHT,
+      },
+    }
   );
 
   delete map['prev'];

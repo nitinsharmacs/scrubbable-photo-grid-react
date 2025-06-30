@@ -14,13 +14,18 @@ const Segment = ({ segment, map }: SegmentProps) => {
         top: `${map.top}px`,
       }}
     >
-      {map.tiles.map((tile: TileType, index: number) => (
-        <Tile
-          key={segment.images[index].imageId}
-          tile={tile}
-          image={segment.images[index]}
-        />
-      ))}
+      <div className='segment-header' style={{ height: map.headerHeight }}>
+        <h3>{segment.header}</h3>
+      </div>
+      <div className='segment-content'>
+        {map.tiles.map((tile: TileType, index: number) => (
+          <Tile
+            key={segment.images[index].imageId}
+            tile={tile}
+            image={segment.images[index]}
+          />
+        ))}
+      </div>
     </div>
   );
 };

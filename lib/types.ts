@@ -34,6 +34,7 @@ export type SegmentConfigType = {
   width: number;
   height: number;
   tiles: TileType[];
+  headerHeight: number;
 };
 
 export type SegmentsMapType = {

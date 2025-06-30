@@ -1,3 +1,4 @@
+import { SECTION_HEADER_HEIGHT, SEGMENT_HEADER_HEIGHT } from 'lib/constants';
 import { SectionsMapper } from 'lib/models/SectionsMapper';
 import {
   GridConfigType,
@@ -55,7 +56,7 @@ describe('SectionsMapper', () => {
         visible: false,
         index: 0,
         segmentsMap: {},
-        headerHeight: SectionsMapper.HEADER_HEIGHT,
+        headerHeight: SECTION_HEADER_HEIGHT,
       },
       sec2: {
         top: 260,
@@ -63,7 +64,7 @@ describe('SectionsMapper', () => {
         visible: false,
         index: 1,
         segmentsMap: {},
-        headerHeight: SectionsMapper.HEADER_HEIGHT,
+        headerHeight: SECTION_HEADER_HEIGHT,
       },
       sec3: {
         top: 950,
@@ -71,7 +72,7 @@ describe('SectionsMapper', () => {
         visible: false,
         index: 2,
         segmentsMap: {},
-        headerHeight: SectionsMapper.HEADER_HEIGHT,
+        headerHeight: SECTION_HEADER_HEIGHT,
       },
     };
     expect(mapper.createMap(sections)).toStrictEqual(expectedMap);
@@ -97,7 +98,7 @@ describe('SectionsMapper', () => {
       height: 200,
       visible: false,
       index: 0,
-      headerHeight: SectionsMapper.HEADER_HEIGHT,
+      headerHeight: SECTION_HEADER_HEIGHT,
       segmentsMap: {},
     });
   });
@@ -131,15 +132,16 @@ describe('SectionsMapper', () => {
 
     const expected: SectionConfigType = {
       top: 20,
-      height: 240,
+      height: 280,
       visible: true,
       index: 0,
-      headerHeight: SectionsMapper.HEADER_HEIGHT,
+      headerHeight: SECTION_HEADER_HEIGHT,
       segmentsMap: {
         'seg-1': {
           top: 10,
           width: 800,
-          height: 170,
+          height: 210,
+          headerHeight: SEGMENT_HEADER_HEIGHT,
           tiles: [
             {
               width: 150,
@@ -190,7 +192,7 @@ describe('SectionsMapper', () => {
       visible: false,
       index: 0,
       segmentsMap: {},
-      headerHeight: SectionsMapper.HEADER_HEIGHT,
+      headerHeight: SECTION_HEADER_HEIGHT,
     };
     const actual = mapper.updateForSection(section, false);
 
@@ -210,7 +212,7 @@ describe('SectionsMapper', () => {
         visible: false,
         index: 0,
         segmentsMap: {},
-        headerHeight: SectionsMapper.HEADER_HEIGHT,
+        headerHeight: SECTION_HEADER_HEIGHT,
       },
       sec2: {
         top: 262,
@@ -218,7 +220,7 @@ describe('SectionsMapper', () => {
         visible: false,
         index: 1,
         segmentsMap: {},
-        headerHeight: SectionsMapper.HEADER_HEIGHT,
+        headerHeight: SECTION_HEADER_HEIGHT,
       },
       sec3: {
         top: 952,
@@ -226,7 +228,7 @@ describe('SectionsMapper', () => {
         visible: false,
         index: 2,
         segmentsMap: {},
-        headerHeight: SectionsMapper.HEADER_HEIGHT,
+        headerHeight: SECTION_HEADER_HEIGHT,
       },
     };
 
@@ -280,13 +282,14 @@ describe('SectionsMapper', () => {
 
     const expectedMap: SectionConfigType = {
       top: 20,
-      height: 270,
+      height: 350,
       visible: false,
       index: 0,
-      headerHeight: SectionsMapper.HEADER_HEIGHT,
+      headerHeight: SECTION_HEADER_HEIGHT,
       segmentsMap: {
         'seg-1': {
-          height: 170,
+          height: 210,
+          headerHeight: SEGMENT_HEADER_HEIGHT,
           tiles: [
             {
               aspectRatio: 1,
@@ -300,9 +303,10 @@ describe('SectionsMapper', () => {
           width: 800,
         },
         'seg-2': {
-          height: 10,
+          height: 50,
+          headerHeight: SEGMENT_HEADER_HEIGHT,
           tiles: [],
-          top: 200,
+          top: 240,
           width: 800,
         },
       },

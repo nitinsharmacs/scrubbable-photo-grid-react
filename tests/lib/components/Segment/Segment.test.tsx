@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import Segment from 'lib/components/Segment/Segment';
 import { SegmentConfigType, SegmentType } from 'lib/types';
 import { describe, expect, it } from 'vitest';
+import { SEGMENT_HEADER_HEIGHT } from 'lib/constants';
 
 describe('Segment', () => {
   it('should match snapshot', () => {
@@ -17,6 +18,7 @@ describe('Segment', () => {
       top: 0,
       width: 100,
       height: 100,
+      headerHeight: SEGMENT_HEADER_HEIGHT,
       tiles: [],
     };
     const { container } = render(<Segment segment={segment} map={map} />);
@@ -51,6 +53,7 @@ describe('Segment', () => {
       top: 0,
       width: 100,
       height: 100,
+      headerHeight: SEGMENT_HEADER_HEIGHT,
       tiles: [
         {
           width: 100,

@@ -3,3 +3,14 @@
   position: absolute;
   contain: layout;
 }
+
+.segment-header {
+}
+
+.segment-header > h3 {
+  margin: 0;
+}
+
+.segment-content {
+  position: relative;
+}
