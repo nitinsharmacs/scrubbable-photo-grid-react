@@ -1,4 +1,6 @@
 import createJustifiedLayout from 'justified-layout';
+import type { SectionCtx } from 'lib/components/Section/types';
+import type { SegmentCtx } from 'lib/components/Segment/types';
 import {
   IMAGE_ASPECT_RATIO,
   COALESCING_FACTOR,
@@ -8,6 +10,7 @@ import {
 import type {
   GridConfigType,
   ImageType,
+  SectionType,
   SegmentType,
   SegmentsMapType,
   TileType,
@@ -65,6 +68,7 @@ export const createSegmentsMap = (
         width: 0,
         tiles: [],
         headerHeight: SEGMENT_HEADER_HEIGHT,
+        tilesMap: {},
       },
     }
   );
@@ -72,4 +76,32 @@ export const createSegmentsMap = (
   delete map['prev'];
 
   return map;
+};
+
+export const createSectionContext = (section: SectionType): SectionCtx => {
+  return section.segments.reduce<SectionCtx>(
+    (ctx: SectionCtx, segment: SegmentType) => {
+      const segmentCtx = createSegmentContext(segment);
+
+      ctx.segments[segment.segmentId] = segmentCtx;
+
+      return ctx;
+    },
+    {
+      selected: false,
+      segments: {},
+    }
+  );
+};
+
+export const createSegmentContext = (segment: SegmentType): SegmentCtx => {
+  return segment.images.reduce<SegmentCtx>(
+    (ctx, img: ImageType) => {
+      ctx.tiles[img.imageId] = {
+        selected: false,
+      };
+      return ctx;
+    },
+    { selected: false, tiles: {} }
+  );
 };

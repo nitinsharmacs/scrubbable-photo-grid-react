@@ -13,7 +13,7 @@ const getScaleFactor = (
   return `${x},${y}`;
 };
 
-const Tile = ({ tile, image }: TileProps) => {
+const Tile = ({ tile, image, ctx }: TileProps) => {
   return (
     <div
       className='tile'
@@ -25,17 +25,27 @@ const Tile = ({ tile, image }: TileProps) => {
         top: `${tile.top}px`,
       }}
     >
-      <CheckCircleIcon className='tile-checkicon' />
+      <div
+        className={['tile-checkicon', ctx.selected ? 'active' : ''].join(' ')}
+        data-tile-id={image.imageId}
+        aria-label='tile-checkbox'
+      >
+        <CheckCircleIcon />
+      </div>
       <figure
-        className='tile-image active'
-        style={{
-          transform: `scale(${getScaleFactor(
-            tile.width,
-            20,
-            tile.height,
-            20
-          )})`,
-        }}
+        className='tile-image'
+        style={
+          ctx.selected
+            ? {
+                transform: `scale(${getScaleFactor(
+                  tile.width,
+                  30,
+                  tile.height,
+                  30
+                )})`,
+              }
+            : {}
+        }
       >
         <img src={image.imageurl} />
       </figure>
