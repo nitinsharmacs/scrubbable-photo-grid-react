@@ -1,0 +1,25 @@
+.checkbutton {
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  color: rgb(208, 204, 204);
+  font-size: 0;
+  background-color: white;
+  border-radius: 100%;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+.checkbutton::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.checkbutton.active {
+  color: #1976d2;
+}

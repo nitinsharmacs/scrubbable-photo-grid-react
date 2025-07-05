@@ -9,8 +9,9 @@ exports[`Tile > should match snapshot 1`] = `
   >
     <div
       aria-label="tile-checkicon"
-      class="tile-checkicon "
+      class="checkbutton "
       data-tile-id="something1"
+      style="position: absolute;"
     >
       <svg
         aria-hidden="true"

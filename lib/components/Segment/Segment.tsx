@@ -3,6 +3,7 @@ import type { SegmentProps } from 'lib/components/Segment/types';
 import './segment.css';
 import type { TileType } from 'lib/types';
 import Tile from 'lib/components/Tile/Tile';
+import CheckButton from 'lib/components/CheckButton/CheckButton';
 
 const isTile = (
   ele: HTMLElement | { getAttribute: (name: string) => string }
@@ -16,7 +17,7 @@ const Segment = ({ segment, map, ctx, onSelect }: SegmentProps) => {
 
     if (isTile(target)) {
       const tileId: string = target.getAttribute('data-tile-id') || '';
-      onSelect({ segmentId: segment.segmentId, tilesId: [tileId] });
+      return onSelect({ segmentId: segment.segmentId, tilesId: [tileId] });
     }
   }, []);
 
@@ -29,11 +30,17 @@ const Segment = ({ segment, map, ctx, onSelect }: SegmentProps) => {
         height: `${map.height}px`,
         top: `${map.top}px`,
       }}
+      onClick={selectHandler}
     >
       <div className='segment-header' style={{ height: map.headerHeight }}>
+        <CheckButton
+          active={ctx.selected}
+          id={segment.segmentId}
+          label='segment-checkicon'
+        />
         <h3>{segment.header}</h3>
       </div>
-      <div className='segment-content' onClick={selectHandler}>
+      <div className='segment-content'>
         {map.tiles.map((tile: TileType, index: number) => (
           <Tile
             key={segment.images[index].imageId}

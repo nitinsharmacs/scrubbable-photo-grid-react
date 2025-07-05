@@ -87,7 +87,7 @@ describe('Section', () => {
     expect(container.querySelectorAll('.segment').length).toBe(2);
   });
 
-  it.only('should select tiles', async () => {
+  it('should select tiles', async () => {
     const section: SectionType = {
       sectionId: 'sec1',
       totalImages: 1,
@@ -170,10 +170,10 @@ describe('Section', () => {
 
     // click first time
     await userEvent.click(checkboxes[0]);
-    expect(checkboxes[0]).toHaveAttribute('class', 'tile-checkicon active');
+    expect(checkboxes[0]).toHaveAttribute('class', 'checkbutton active');
 
     // click first time, should unselect
     await userEvent.click(checkboxes[0]);
-    expect(checkboxes[0]).toHaveAttribute('class', 'tile-checkicon ');
+    expect(checkboxes[0]).toHaveAttribute('class', 'checkbutton ');
   });
 });

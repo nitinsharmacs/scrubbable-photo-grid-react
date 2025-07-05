@@ -5,10 +5,14 @@
 }
 
 .segment-header {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5em;
 }
 
 .segment-header > h3 {
   margin: 0;
+  margin-left: 0.5em;
 }
 
 .segment-content {

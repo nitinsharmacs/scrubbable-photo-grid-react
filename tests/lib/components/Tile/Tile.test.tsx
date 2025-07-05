@@ -59,7 +59,7 @@ describe('Tile', () => {
     render(<Tile tile={tile} image={image} ctx={{ selected: true }} />);
     expect(screen.getByLabelText('tile-checkicon')).toHaveAttribute(
       'class',
-      'tile-checkicon active'
+      'checkbutton active'
     );
     expect(screen.getByRole('figure')).toHaveStyle(
       'transform: scale(scale factor)'

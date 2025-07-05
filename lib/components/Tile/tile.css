@@ -22,22 +22,3 @@
 .tile-image.active {
   border-radius: 5px;
 }
-
-.tile-checkicon {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  z-index: 1;
-  color: rgb(208, 204, 204);
-  font-size: 0;
-}
-.tile-checkicon::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-}
-.tile-checkicon.active {
-  color: #1976d2;
-}
