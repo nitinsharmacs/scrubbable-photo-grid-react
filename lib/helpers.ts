@@ -105,3 +105,14 @@ export const createSegmentContext = (segment: SegmentType): SegmentCtx => {
     { selected: false, tiles: {} }
   );
 };
+
+export const getScaleFactor = (
+  width: number,
+  xOffset: number,
+  height: number,
+  yOffset: number
+): string => {
+  const x = ((width - xOffset) / width).toFixed(2);
+  const y = ((height - yOffset) / height).toFixed(2);
+  return `${x},${y}`;
+};

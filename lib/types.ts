@@ -29,21 +29,12 @@ export type ImageType = {
   imageId: string;
 };
 
-export type TileConfigType = {
-  selected: boolean;
-};
-
-export type TileMapType = {
-  [key: string]: TileConfigType;
-};
-
 export type SegmentConfigType = {
   top: number;
   width: number;
   height: number;
   tiles: TileType[];
   headerHeight: number;
-  tilesMap: TileMapType;
 };
 
 export type SegmentsMapType = {

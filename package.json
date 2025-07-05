@@ -25,6 +25,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
+    "immer": "^10.1.1",
     "justified-layout": "^4.1.0"
   },
   "peerDependencies": {

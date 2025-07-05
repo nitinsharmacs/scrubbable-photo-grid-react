@@ -4,18 +4,22 @@ import './segment.css';
 import type { TileType } from 'lib/types';
 import Tile from 'lib/components/Tile/Tile';
 
-const isTile = (ele: HTMLElement): boolean => {
-  return ele.getAttribute('aria-label') === 'tile-checkbox';
+const isTile = (
+  ele: HTMLElement | { getAttribute: (name: string) => string }
+): boolean => {
+  return ele.getAttribute('aria-label') === 'tile-checkicon';
 };
 
 const Segment = ({ segment, map, ctx, onSelect }: SegmentProps) => {
   const selectHandler = useCallback((e: React.SyntheticEvent) => {
     const target = e.target as HTMLElement;
+
     if (isTile(target)) {
       const tileId: string = target.getAttribute('data-tile-id') || '';
-      onSelect({ segmentId: segment.segmentId, tileId });
+      onSelect({ segmentId: segment.segmentId, tilesId: [tileId] });
     }
   }, []);
+
   return (
     <div
       className='segment'
