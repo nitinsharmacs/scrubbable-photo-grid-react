@@ -1,5 +1,4 @@
 import type { TileProps } from 'lib/components/Tile/types';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { getScaleFactor } from 'lib/helpers';
 import './tile.css';
 import CheckButton from 'lib/components/CheckButton/CheckButton';
@@ -20,7 +19,7 @@ const Tile = ({ tile, image, ctx }: TileProps) => {
         active={ctx.selected}
         id={image.imageId}
         label='tile-checkicon'
-        position='absolute'
+        styles={{ position: 'absolute', left: '5px', top: '5px' }}
       />
 
       <figure

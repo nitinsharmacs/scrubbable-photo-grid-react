@@ -31,8 +31,8 @@ exports[`Grid > should match snapshot 1`] = `
             <div
               aria-label="segment-checkicon"
               class="checkbutton "
-              data-tile-id="2019_04_25"
-              style="position: static;"
+              data-id="2019_04_25"
+              style="top: 0px; left: 0px;"
             >
               <svg
                 aria-hidden="true"
@@ -65,8 +65,8 @@ exports[`Grid > should match snapshot 1`] = `
             <div
               aria-label="segment-checkicon"
               class="checkbutton "
-              data-tile-id="2019_04_24"
-              style="position: static;"
+              data-id="2019_04_24"
+              style="top: 0px; left: 0px;"
             >
               <svg
                 aria-hidden="true"

@@ -5,19 +5,18 @@ import type { TileType } from 'lib/types';
 import Tile from 'lib/components/Tile/Tile';
 import CheckButton from 'lib/components/CheckButton/CheckButton';
 
-const isTile = (
-  ele: HTMLElement | { getAttribute: (name: string) => string }
-): boolean => {
-  return ele.getAttribute('aria-label') === 'tile-checkicon';
-};
-
 const Segment = ({ segment, map, ctx, onSelect }: SegmentProps) => {
   const selectHandler = useCallback((e: React.SyntheticEvent) => {
     const target = e.target as HTMLElement;
-
-    if (isTile(target)) {
-      const tileId: string = target.getAttribute('data-tile-id') || '';
-      return onSelect({ segmentId: segment.segmentId, tilesId: [tileId] });
+    switch (target.getAttribute('aria-label')) {
+      case 'tile-checkicon':
+        const tileId: string = target.getAttribute('data-id') || '';
+        return onSelect({ segmentId: segment.segmentId, tilesId: [tileId] });
+      case 'segment-checkicon':
+        return onSelect({
+          segmentId: segment.segmentId,
+          tilesId: segment.images.map((img) => img.imageId),
+        });
     }
   }, []);
 
@@ -37,6 +36,7 @@ const Segment = ({ segment, map, ctx, onSelect }: SegmentProps) => {
           active={ctx.selected}
           id={segment.segmentId}
           label='segment-checkicon'
+          styles={{ top: 0, left: 0 }}
         />
         <h3>{segment.header}</h3>
       </div>

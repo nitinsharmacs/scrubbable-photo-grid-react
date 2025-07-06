@@ -14,8 +14,8 @@ exports[`Segment > should match snapshot 1`] = `
       <div
         aria-label="segment-checkicon"
         class="checkbutton "
-        data-tile-id="sec1"
-        style="position: static;"
+        data-id="sec1"
+        style="top: 0px; left: 0px;"
       >
         <svg
           aria-hidden="true"

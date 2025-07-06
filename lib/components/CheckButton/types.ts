@@ -1,7 +1,9 @@
+import type { CSSProperties } from 'react';
+
 export interface CheckButtonProps {
   active?: boolean;
   label: string;
   id: string;
-  position?: 'absolute' | 'static';
+  styles?: CSSProperties;
   onClick?: (e: React.SyntheticEvent) => void;
 }

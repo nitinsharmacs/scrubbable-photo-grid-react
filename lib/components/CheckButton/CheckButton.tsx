@@ -7,11 +7,9 @@ const CheckButton = (props: CheckButtonProps) => {
   return (
     <div
       className={['checkbutton', props.active ? 'active' : ''].join(' ')}
-      data-tile-id={props.id}
+      data-id={props.id}
       aria-label={props.label}
-      style={{
-        position: props.position || 'static',
-      }}
+      style={props.styles}
       onClick={props.onClick}
     >
       <CheckCircleIcon />

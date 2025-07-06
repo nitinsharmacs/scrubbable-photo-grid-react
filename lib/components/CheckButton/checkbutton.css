@@ -1,6 +1,4 @@
 .checkbutton {
-  top: 5px;
-  left: 5px;
   z-index: 1;
   color: rgb(208, 204, 204);
   font-size: 0;
@@ -10,6 +8,7 @@
   width: 24px;
   height: 24px;
   display: inline-block;
+  position: relative;
 }
 
 .checkbutton::before {

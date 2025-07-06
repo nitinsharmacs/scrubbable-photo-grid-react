@@ -5,8 +5,7 @@ exports[`CheckButton > should match snapshot 1`] = `
   <div
     aria-label="tile-btn"
     class="checkbutton "
-    data-tile-id="btn-id"
-    style="position: static;"
+    data-id="btn-id"
   >
     <svg
       aria-hidden="true"
