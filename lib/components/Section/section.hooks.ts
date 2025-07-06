@@ -6,7 +6,7 @@ import type {
 } from 'lib/components/Segment/types';
 import { useCallback, useState } from 'react';
 
-export const toggleTileInCtx = (
+export const toggleSelectInCtx = (
   ctx: SectionCtx,
   segmentId: string,
   tilesId: string[]
@@ -37,8 +37,7 @@ export const toggleTileInCtx = (
   });
 
   segment.selected =
-    Object.values(segment.tiles).filter((tile) => tile.selected).length ===
-    tiles.length;
+    tiles.filter((tile) => tile.selected).length === tiles.length;
 
   return ctx;
 };
@@ -51,7 +50,7 @@ export const useSectionContext = (
   const selectHandler = useCallback(
     ({ segmentId, tilesId }: SegmentClickEvent) => {
       updateCtx(
-        produce((prevCtx) => toggleTileInCtx(prevCtx, segmentId, tilesId))
+        produce((prevCtx) => toggleSelectInCtx(prevCtx, segmentId, tilesId))
       );
     },
     []
