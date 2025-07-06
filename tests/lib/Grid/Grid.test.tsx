@@ -1,6 +1,6 @@
 import React from 'react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import Grid from 'lib/Grid/Grid';
 import { GridConfigType } from 'lib/types';
@@ -45,10 +45,6 @@ const mockIntersectionObserver = (
 };
 
 describe('Grid', () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   const gridConfig: GridConfigType = {
     containerWidth: 800,
     segmentMargin: 10,
@@ -126,5 +122,38 @@ describe('Grid', () => {
     expect(mapper.getSectionConfig).toBeCalledWith('someid');
     expect(mapper.updateForSection).toBeCalledWith(sections[0], true);
     expect(mapper.updateSectionsTopFrom).toBeCalledWith(1, 70, sections);
+  });
+
+  it('should resize on window resize', async () => {
+    const observeMock = vi.fn();
+    mockIntersectionObserver({ observe: observeMock });
+
+    const div = document.createElement('div');
+    Object.defineProperty(div, 'clientWidth', {
+      configurable: true,
+      get: () => 800,
+    });
+
+    render(
+      <Grid config={gridConfig} gridData={sections} parent={{ current: div }} />
+    );
+
+    expect(screen.getByText('April, 2019').closest('.section')).toHaveStyle(
+      'width: 800px'
+    );
+
+    Object.defineProperty(div, 'clientWidth', {
+      writable: true,
+      configurable: true,
+      value: 500,
+    });
+
+    window.dispatchEvent(new Event('resize'));
+
+    await waitFor(() => {
+      expect(screen.getByText('April, 2019').closest('.section')).toHaveStyle(
+        'width: 500px'
+      );
+    });
   });
 });
