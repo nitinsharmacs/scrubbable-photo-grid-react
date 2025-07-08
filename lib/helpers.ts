@@ -68,7 +68,6 @@ export const createSegmentsMap = (
         width: 0,
         tiles: [],
         headerHeight: SEGMENT_HEADER_HEIGHT,
-        tilesMap: {},
       },
     }
   );

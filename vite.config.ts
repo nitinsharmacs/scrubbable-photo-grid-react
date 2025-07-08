@@ -26,7 +26,15 @@ export default defineConfig({
     },
     copyPublicDir: false,
     rollupOptions: {
-      external: ['react', 'react/jsx-runtime'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        /@emotion\/react/,
+        /@emotion\/styled/,
+        /@mui\/material/,
+        /@mui\/icons-material/,
+      ],
       input: Object.fromEntries(
         glob
           .sync('lib/**/*.{ts,tsx}', {
