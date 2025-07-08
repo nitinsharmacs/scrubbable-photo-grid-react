@@ -2,7 +2,6 @@
   z-index: 1;
   color: rgb(208, 204, 204);
   font-size: 0;
-  background-color: white;
   border-radius: 100%;
   padding: 0;
   width: 24px;
@@ -21,4 +20,5 @@
 
 .checkbutton.active {
   color: #1976d2;
+  background-color: white;
 }

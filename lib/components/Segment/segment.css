@@ -13,6 +13,7 @@
 .segment-header > h3 {
   margin: 0;
   margin-left: 0.5em;
+  font-weight: normal;
 }
 
 .segment-content {

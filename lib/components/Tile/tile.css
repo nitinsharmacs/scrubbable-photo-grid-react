@@ -5,6 +5,10 @@
   cursor: pointer;
 }
 
+.tile.active {
+  border-radius: 5px;
+}
+
 .tile-image {
   margin: 0;
   padding: 0;

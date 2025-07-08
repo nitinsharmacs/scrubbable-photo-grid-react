@@ -3,7 +3,7 @@
 exports[`Tile > should match snapshot 1`] = `
 <div>
   <div
-    class="tile"
+    class="tile "
     id="something1"
     style="width: 0px; height: 0px; left: 0px; top: 0px;"
   >
@@ -26,7 +26,7 @@ exports[`Tile > should match snapshot 1`] = `
       </svg>
     </div>
     <figure
-      class="tile-image"
+      class="tile-image "
     >
       <img
         src="somehing"

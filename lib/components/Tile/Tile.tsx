@@ -6,7 +6,7 @@ import CheckButton from 'lib/components/CheckButton/CheckButton';
 const Tile = ({ tile, image, ctx }: TileProps) => {
   return (
     <div
-      className='tile'
+      className={['tile', ctx.selected ? 'active' : ''].join(' ')}
       id={image.imageId}
       style={{
         width: `${tile.width}px`,
@@ -23,7 +23,7 @@ const Tile = ({ tile, image, ctx }: TileProps) => {
       />
 
       <figure
-        className='tile-image'
+        className={['tile-image', ctx.selected ? 'active' : ''].join(' ')}
         style={
           ctx.selected
             ? {
