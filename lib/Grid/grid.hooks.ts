@@ -1,7 +1,14 @@
+import type {
+  SectionCtx,
+  SectionSelectionHandler,
+} from 'lib/components/Section/types';
+import type { GridSelectionHandler } from 'lib/Grid/types';
+import GridSelector from 'lib/models/GridSelector';
 import type { GridConfigType } from 'lib/types';
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type RefObject,
@@ -49,4 +56,17 @@ export const useGridConfig = (
   }, []);
 
   return gridConfig;
+};
+
+export const useGridSelector = (
+  sideEffect: GridSelectionHandler | undefined
+): SectionSelectionHandler => {
+  const gridSelector = useMemo<GridSelector>(() => new GridSelector(), []);
+
+  const selectHandler = useCallback((sectionId: string, ctx: SectionCtx) => {
+    gridSelector.update(sectionId, ctx);
+    sideEffect && sideEffect(gridSelector.selections);
+  }, []);
+
+  return selectHandler;
 };

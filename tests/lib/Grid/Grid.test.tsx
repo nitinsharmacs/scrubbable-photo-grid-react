@@ -8,6 +8,7 @@ import { GridConfigType } from 'lib/types';
 import sections from '../../data/sections.json';
 
 import { SectionsMapper } from 'lib/models/SectionsMapper';
+import userEvent from '@testing-library/user-event';
 
 vi.mock('lib/models/SectionsMapper', () => {
   const SectionsMapperMock = vi.fn();
@@ -154,6 +155,28 @@ describe('Grid', () => {
       expect(screen.getByText('April, 2019').closest('.section')).toHaveStyle(
         'width: 500px'
       );
+    });
+  });
+
+  it('should select segment', async () => {
+    mockIntersectionObserver();
+
+    const onSelectMock = vi.fn();
+
+    render(
+      <Grid config={gridConfig} gridData={sections} onSelect={onSelectMock} />
+    );
+
+    const firstSegment = screen.getAllByLabelText('segment-checkicon')[0];
+    await userEvent.click(firstSegment);
+
+    expect(onSelectMock).toHaveBeenNthCalledWith(3, {
+      '2019_04': {
+        '2019_04_25': [
+          'f350c526-6e91-417c-a4dd-5b776b52592a',
+          'e34f3222-1113-4f7e-9bf1-1d09fefaa0f6',
+        ],
+      },
     });
   });
 });

@@ -5,9 +5,15 @@ import type { SegmentType } from 'lib/types';
 import Segment from 'lib/components/Segment/Segment';
 import { createSectionContext } from 'lib/helpers';
 import { useSectionContext } from './section.hooks';
+import { useEffect } from 'react';
 
-const Section = ({ section, config, map }: SectionProps) => {
+const Section = ({ section, config, map, onSelect }: SectionProps) => {
   const [ctx, handlers] = useSectionContext(createSectionContext(section));
+
+  // TODO: remove this way of using hook, to handling onSelect.
+  useEffect(() => {
+    onSelect && onSelect(section.sectionId, ctx);
+  }, [ctx]);
 
   return (
     <div

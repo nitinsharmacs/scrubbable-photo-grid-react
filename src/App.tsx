@@ -23,7 +23,12 @@ function App() {
 
   return (
     <div ref={parentRef}>
-      <Grid config={config} gridData={sections} parent={parentRef} />
+      <Grid
+        config={config}
+        gridData={sections}
+        parent={parentRef}
+        onSelect={console.log}
+      />
     </div>
   );
 }
