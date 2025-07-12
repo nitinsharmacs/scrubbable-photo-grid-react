@@ -1,6 +1,6 @@
 import Grid from 'lib/Grid/Grid';
 import './App.css';
-import { createRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import type { GridConfigType, SectionType } from 'lib/types';
 
 import store from '../data/populated.json';
@@ -19,7 +19,7 @@ function App() {
 
   const [sections, updateSections] = useState<SectionType[]>(loadedSections);
 
-  const parentRef = createRef<HTMLDivElement>();
+  const parentRef = useRef<HTMLDivElement>(null);
 
   return (
     <div ref={parentRef}>

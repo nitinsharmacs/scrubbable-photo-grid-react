@@ -53,7 +53,7 @@ const gridConfig: GridConfigType = {
 };
 
 const Photos = () => {
-  const ref = createRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
     <div className='photos' ref={ref}>
@@ -66,6 +66,14 @@ export default Photos;
 ```
 
 You can find the structure of `images.json` from the test data at path `tests/data/`.
+
+## Facing issue?
+
+There are some known common issue which can be solved.
+
+1. Grid not resizing?
+
+Make sure to pass parent reference to `Grid`. Please `useRef` to create element reference if using functional component.
 
 ## Notice
 
