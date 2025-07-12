@@ -44,7 +44,10 @@ export const toggleSelectInCtx = (
 
 export const useSectionContext = (
   initialContext: SectionCtx
-): [SectionCtx, { selectHandler: SelectHandler }] => {
+): [
+  SectionCtx,
+  { selectHandler: SelectHandler; clearSelection: () => void }
+] => {
   const [ctx, updateCtx] = useState<SectionCtx>(initialContext);
 
   const selectHandler = useCallback(
@@ -56,5 +59,9 @@ export const useSectionContext = (
     []
   );
 
-  return [ctx, { selectHandler }];
+  const clearSelection = useCallback(() => {
+    updateCtx(initialContext);
+  }, []);
+
+  return [ctx, { selectHandler, clearSelection }];
 };

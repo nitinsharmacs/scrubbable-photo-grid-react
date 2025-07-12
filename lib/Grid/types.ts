@@ -6,6 +6,11 @@ export type GridSelectionHandler = (selections: GridSelections) => void;
 export interface GridProps {
   gridData: SectionType[];
   config: GridConfigType;
+  ref?: React.Ref<GridOps> | undefined;
   parent?: RefObject<HTMLElement | null>;
   onSelect?: GridSelectionHandler;
+}
+
+export interface GridOps {
+  resetSelection: () => void;
 }

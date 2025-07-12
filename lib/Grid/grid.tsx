@@ -11,7 +11,7 @@ import type { GridProps } from 'lib/Grid/types';
 import { useGridConfig, useGridSelector } from 'lib/Grid/grid.hooks';
 import { SectionsMapper } from 'lib/models/SectionsMapper';
 
-const Grid = ({ config, gridData, parent, onSelect }: GridProps) => {
+const Grid = ({ config, gridData, parent, ref, onSelect }: GridProps) => {
   const gridRef = createRef<HTMLDivElement>();
 
   const gridConfig = useGridConfig(config, parent);
@@ -48,7 +48,7 @@ const Grid = ({ config, gridData, parent, onSelect }: GridProps) => {
     [sectionsMapper]
   );
 
-  const selectHandler = useGridSelector(onSelect);
+  const { isReset, selectHandler } = useGridSelector(ref, onSelect);
 
   useEffect(() => {
     const options = {
@@ -79,6 +79,7 @@ const Grid = ({ config, gridData, parent, onSelect }: GridProps) => {
           key={section.sectionId}
           section={section}
           config={gridConfig}
+          resetSelection={isReset}
           map={sectionsMap[section.sectionId]}
           onSelect={selectHandler}
         />

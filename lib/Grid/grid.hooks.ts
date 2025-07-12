@@ -2,12 +2,13 @@ import type {
   SectionCtx,
   SectionSelectionHandler,
 } from 'lib/components/Section/types';
-import type { GridSelectionHandler } from 'lib/Grid/types';
+import type { GridOps, GridSelectionHandler } from 'lib/Grid/types';
 import GridSelector from 'lib/models/GridSelector';
 import type { GridConfigType } from 'lib/types';
 import {
   useCallback,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
   useState,
@@ -59,8 +60,11 @@ export const useGridConfig = (
 };
 
 export const useGridSelector = (
+  gridRef: React.Ref<GridOps> | undefined,
   sideEffect: GridSelectionHandler | undefined
-): SectionSelectionHandler => {
+): { isReset: boolean; selectHandler: SectionSelectionHandler } => {
+  const [isReset, reset] = useState<boolean>(false);
+
   const gridSelector = useMemo<GridSelector>(() => new GridSelector(), []);
 
   const selectHandler = useCallback((sectionId: string, ctx: SectionCtx) => {
@@ -68,5 +72,16 @@ export const useGridSelector = (
     sideEffect && sideEffect(gridSelector.selections);
   }, []);
 
-  return selectHandler;
+  useImperativeHandle(
+    gridRef,
+    () => {
+      return {
+        resetSelection() {
+          reset((prev) => !prev);
+        },
+      };
+    },
+    []
+  );
+  return { isReset, selectHandler };
 };

@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import type { GridConfigType, SectionType } from 'lib/types';
 
 import store from '../data/populated.json';
+import type { GridOps } from 'lib/Grid/types';
 
 const loadedSections = store.slice(0, 10) as SectionType[];
 
@@ -21,15 +22,27 @@ function App() {
 
   const parentRef = useRef<HTMLDivElement>(null);
 
+  const gridRef = useRef<GridOps>(null);
+
   return (
-    <div ref={parentRef}>
-      <Grid
-        config={config}
-        gridData={sections}
-        parent={parentRef}
-        onSelect={console.log}
-      />
-    </div>
+    <>
+      <button
+        onClick={() => {
+          gridRef.current?.resetSelection();
+        }}
+      >
+        Reset
+      </button>
+      <div ref={parentRef}>
+        <Grid
+          ref={gridRef}
+          config={config}
+          gridData={sections}
+          parent={parentRef}
+          onSelect={console.log}
+        />
+      </div>
+    </>
   );
 }
 

@@ -9,6 +9,7 @@ import sections from '../../data/sections.json';
 
 import { SectionsMapper } from 'lib/models/SectionsMapper';
 import userEvent from '@testing-library/user-event';
+import { GridOps } from 'lib/Grid/types';
 
 vi.mock('lib/models/SectionsMapper', () => {
   const SectionsMapperMock = vi.fn();
@@ -177,6 +178,44 @@ describe('Grid', () => {
           'e34f3222-1113-4f7e-9bf1-1d09fefaa0f6',
         ],
       },
+    });
+  });
+
+  it('should reset selection', async () => {
+    mockIntersectionObserver();
+
+    const onSelectMock = vi.fn();
+
+    const ref = React.createRef<GridOps>();
+
+    render(
+      <Grid
+        config={gridConfig}
+        gridData={sections}
+        onSelect={onSelectMock}
+        ref={ref}
+      />
+    );
+
+    const firstSegment = screen.getAllByLabelText('segment-checkicon')[0];
+
+    await userEvent.click(firstSegment);
+
+    expect(onSelectMock).toHaveBeenNthCalledWith(3, {
+      '2019_04': {
+        '2019_04_25': [
+          'f350c526-6e91-417c-a4dd-5b776b52592a',
+          'e34f3222-1113-4f7e-9bf1-1d09fefaa0f6',
+        ],
+      },
+    });
+
+    onSelectMock.mockReset();
+
+    ref.current.resetSelection();
+
+    waitFor(() => {
+      expect(onSelectMock).toHaveBeenCalledOnce();
     });
   });
 });

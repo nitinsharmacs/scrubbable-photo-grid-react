@@ -7,8 +7,18 @@ import { createSectionContext } from 'lib/helpers';
 import { useSectionContext } from './section.hooks';
 import { useEffect } from 'react';
 
-const Section = ({ section, config, map, onSelect }: SectionProps) => {
+const Section = ({
+  section,
+  config,
+  map,
+  onSelect,
+  resetSelection,
+}: SectionProps) => {
   const [ctx, handlers] = useSectionContext(createSectionContext(section));
+
+  useEffect(() => {
+    handlers.clearSelection();
+  }, [resetSelection]);
 
   // TODO: remove this way of using hook, to handling onSelect.
   useEffect(() => {

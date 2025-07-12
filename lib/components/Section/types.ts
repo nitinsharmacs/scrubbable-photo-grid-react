@@ -11,6 +11,7 @@ export interface SectionProps {
   config: GridConfigType;
   map: SectionConfigType;
   onSelect?: SectionSelectionHandler;
+  resetSelection?: boolean;
 }
 
 export type SectionCtx = {
